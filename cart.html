@@ -1,438 +1,1169 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Neeraj Pharma</title>
-
+<link rel="icon" type="image/jpeg" href="neeraj pharma.jpeg">
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #f5f7fa;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background: #ffffff;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        padding: 10px 0;
+      }
+
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo {
+        max-width: 180px;
+        height: 50px;
+        object-fit: contain;
+      }
+
+      .brand-text h4 {
+        margin: 0;
+        font-size: 22px;
+        color: #0d6efd;
+        font-weight: bold;
+      }
+
+      .brand-text small {
+        color: #6c757d;
+        font-size: 12px;
+      }
+
+      .nav-link {
+        color: #333 !important;
+        font-weight: 600;
+        margin: 0 8px;
+        transition: 0.3s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #198754 !important;
+      }
+
+      .search-box {
+        width: 280px;
+      }
+
+      .search-box input {
+        border-radius: 30px;
+      }
+
+      .icon {
+        font-size: 22px;
+        color: #333;
+        margin-left: 18px;
+        position: relative;
+        text-decoration: none;
+      }
+
+      .icon:hover {
+        color: #198754;
+      }
+
+      .badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background: red;
+        color: white;
+        font-size: 10px;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Cart & Card Styling */
+      .cart-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      .product-image {
+        max-width: 100%;
+        max-height: 120px;
+        object-fit: contain;
+        border-radius: 8px;
+      }
+
+      .stock {
+        color: #198754;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 4px;
+      }
+
+      .delivery {
+        color: #6c757d;
+        font-size: 13px;
+        margin-bottom: 0;
+      }
+
+      .price {
+        font-size: 20px;
+        font-weight: 700;
+        color: #212529;
+      }
+
+      /* Quantity Box Controls */
+      .quantity-box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #f8f9fa;
+      }
+
+      .quantity-btn {
+        border: none;
+        background: transparent;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .quantity-btn:hover {
+        background: #e9ecef;
+      }
+
+      .qty {
+        padding: 0 12px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      /* Order Summary Card */
+      .order-summary {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        position: sticky;
+        top: 90px;
+      }
+
+      .order-summary .card-header {
+        padding: 15px 20px;
+      }
+
+      @media (max-width: 991px) {
+        .search-box {
+          width: 100%;
+          margin: 15px 0;
         }
 
-        body{
-            background:#f5f7fa;
-            font-family:Arial, Helvetica, sans-serif;
+        .icon-group {
+          margin-top: 15px;
         }
 
-        .navbar{
-            background:#ffffff;
-            box-shadow:0 3px 12px rgba(0,0,0,0.08);
-            padding:10px 0;
+        .nav-link {
+          padding: 8px 0;
         }
 
-        .navbar-brand{
-            display:flex;
-            align-items:center;
-            gap:10px;
+        .order-summary {
+          position: static;
+          margin-top: 20px;
         }
-
-        .logo{
-    max-width:180px;
-    height:60px;
-    object-fit:contain;
-}
-
-        .brand-text h4{
-            margin:0;
-            font-size:24px;
-            color:#0d6efd;
-            font-weight:bold;
-        }
-
-        .brand-text small{
-            color:#6c757d;
-            font-size:13px;
-        }
-
-        .nav-link{
-            color:#333 !important;
-            font-weight:600;
-            margin:0 8px;
-            transition:.3s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active{
-            color:#198754 !important;
-        }
-
-        .search-box{
-            width:280px;
-        }
-
-        .search-box input{
-            border-radius:30px;
-        }
-
-        .icon{
-            font-size:22px;
-            color:#333;
-            margin-left:18px;
-            position:relative;
-            text-decoration:none;
-        }
-
-        .icon:hover{
-            color:#198754;
-        }
-
-        .badge{
-            position:absolute;
-            top:-8px;
-            right:-10px;
-            background:red;
-            color:white;
-            font-size:10px;
-            width:18px;
-            height:18px;
-            border-radius:50%;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-        }
-
-        @media(max-width:991px){
-
-            .search-box{
-                width:100%;
-                margin:15px 0;
-            }
-
-            .icon-group{
-                margin-top:15px;
-            }
-
-            .nav-link{
-                padding:8px 0;
-            }
-        }
+      }
     </style>
-</head>
-
-<body>
-
-<nav class="navbar navbar-expand-lg sticky-top">
-
-<div class="container">
-
-<a class="navbar-brand" href="#">
-
-<img src="neeraj pharma.jpeg" class="logo img-fluid" alt="Neeraj Pharma">
-<div class="brand-text">
-<h4>Neeraj Pharma</h4>
-<small>Your Trusted Healthcare Partner</small>
-</div>
-
-</a>
-
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
-<span class="navbar-toggler-icon"></span>
-</button>
-
-<div class="collapse navbar-collapse" id="navbarMenu">
-
-<ul class="navbar-nav mx-auto">
-
-<li class="nav-item">
-<a class="nav-link active" href="#">Home</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#">Medicines</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#">Categories</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#">Offers</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#">Contact</a>
-</li>
-
-</ul>
-
-<form class="d-flex search-box">
-<input class="form-control me-2" type="search" placeholder="Search Medicines...">
-<button class="btn btn-success">
-<i class="bi bi-search"></i>
-</button>
-</form>
-
-<div class="icon-group d-flex align-items-center">
-
-<a href="#" class="icon">
-<i class="bi bi-heart"></i>
-<span class="badge">2</span>
-</a>
-
-<a href="#" class="icon">
-<i class="bi bi-cart3"></i>
-<span class="badge">3</span>
-</a>
-
-<a href="#" class="icon">
-<i class="bi bi-person-circle"></i>
-</a>
-
-</div>
-
-</div>
-
-</div>
-
-</nav>
-
-<div class="container mt-5 text-center">
-
-<h2 class="text-success">Welcome to Neeraj Pharma</h2>
-
-<p class="text-muted">
-Shopping Cart • Wishlist • Checkout • Order Summary
-</p>
-
-</div>
-<div class="container my-5">
-
-    <h2 class="fw-bold mb-4">
-        <i class="bi bi-cart-fill text-success"></i> Shopping Cart
-    </h2>
-
-    <div class="row">
-
-        <!-- Cart Items -->
-        <div class="col-lg-8">
-
-            <!-- Product 1 -->
-            <div class="card mb-3 shadow-sm">
-                <div class="row g-0 align-items-center">
-
-                    <div class="col-md-3 text-center p-3">
-                        <img src="dolo.jpeg" class="img-fluid" alt="Dolo 650">
-                    </div>
-
-                    <div class="col-md-9">
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h5>Dolo 650 Tablet</h5>
-                                    <p class="text-muted mb-1">
-                                        Micro Labs Ltd.
-                                    </p>
-<h5 class="text-success product-price">
-₹<span class="price">35</span>
-</h5>
-                                </div>
-
-                                <button class="btn btn-outline-danger btn-sm">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-
-                            <div class="mt-3">
-
-                               <div class="quantity d-flex align-items-center">
-
-<button class="btn btn-outline-secondary minus">
--
-</button>
-
-<span class="mx-3 fw-bold qty">
-1
-</span>
-
-<button class="btn btn-outline-secondary plus">
-+
-</button>
-
-</div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-
-            <div class="card shadow-sm">
-                <div class="row g-0 align-items-center">
-
-                    <div class="col-md-3 text-center p-3">
-                        <img src="vitamin c.jpeg" class="img-fluid" alt="Vitamin C">
-                    </div>
-
-                    <div class="col-md-9">
-
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between">
-
-                                <div>
-
-                                    <h5>Vitamin C Tablets</h5>
-
-                                    <p class="text-muted mb-1">
-                                        HealthKart
-                                    </p>
-
-                                    <h5 class="text-success product-price">
-₹<span class="price">250</span>
-</h5>
-
-                                </div>
-
-                                <button class="btn btn-outline-danger btn-sm">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-
-                            </div>
-
-                            <div class="mt-3">
-
-                                <button class="btn btn-outline-secondary">-</button>
-
-                                <span class="mx-3 fw-bold">2</span>
-
-                                <button class="btn btn-outline-secondary">+</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="card shadow-sm">
-                <div class="row g-0 align-items-center">
-
-                    <div class="col-md-3 text-center p-3">
-                        <img src="foracort.webp" class="img-fluid" alt="Vitamin C">
-                    </div>
-
-                    <div class="col-md-9">
-
-                        <div class="card-body">
-
-                            <div class="d-flex justify-content-between">
-
-                                <div>
-
-                                    <h5>Foracort 200 rotacaps</h5>
-
-                                    <p class="text-muted mb-1">
-                                        rotahaler
-                                    </p>
-                                    
-                        <h5 class="text-success product-price">
-₹<span class="price">185</span>
-</h5>
-                                </div>
-
-                                <button class="btn btn-outline-danger btn-sm">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-
-                            </div>
-
-                            <div class="mt-3">
-
-                                <button class="btn btn-outline-secondary">-</button>
-
-                                <span class="mx-3 fw-bold">2</span>
-
-                                <button class="btn btn-outline-secondary">+</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-
-
+  </head>
+
+  <body>
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="neeraj pharma.jpeg"
+            class="logo img-fluid"
+            alt="Neeraj Pharma"
+          />
+          <div class="brand-text">
+            <h4>Neeraj Pharma</h4>
+            <small>Your Trusted Healthcare Partner</small>
+          </div>
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Medicines</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Categories</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+          </ul>
+
+          <form class="d-flex search-box">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search Medicines..."
+            />
+            <button class="btn btn-success" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+
+          <div class="icon-group d-flex align-items-center">
+            <a href="wishlist.html" class="icon" title="Wishlist">
+              <i class="bi bi-heart"></i>
+              <span class="badge">2</span>
+            </a>
+            <a href="#" class="icon">
+              <i class="bi bi-cart3"></i>
+              <span class="badge" id="cart-badge">6</span>
+            </a>
+            <a href="#" class="icon">
+              <i class="bi bi-person-circle"></i>
+            </a>
+          </div>
         </div>
+      </div>
+    </nav>
 
-
-        <!-- Order Summary -->
-
-        <div class="col-lg-4 mt-4 mt-lg-0">
-
-            <div class="card shadow">
-
-                <div class="card-header bg-success text-white">
-                    <h4 class="mb-0">
-                        Order Summary
-                    </h4>
-                </div>
-
-                <div class="card-body">
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal</span>
-                        <span>₹535</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Discount</span>
-                        <span class="text-success">- ₹35</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Delivery</span>
-                        <span>FREE</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>GST</span>
-                        <span>₹25</span>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between">
-
-                        <h5>Total</h5>
-
-                        <h5 class="text-success">
-                            ₹525
-                        </h5>
-
-                    </div>
-
-                    <button class="btn btn-success w-100 mt-4">
-                        Proceed to Checkout
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
+    <div class="container mt-4 text-center">
+      <h2 class="text-success fw-bold">Welcome to Neeraj Pharma</h2>
+      <p class="text-muted">
+        Shopping Cart • Wishlist • Checkout • Order Summary
+      </p>
     </div>
 
-</div>
+    <!-- Main Cart Section -->
+    <div class="container my-4">
+      <!-- Cart Heading -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h3 class="fw-bold mb-1">
+            <i class="bi bi-cart-fill text-success me-2"></i>Shopping Cart
+          </h3>
+          <p class="text-muted mb-0">
+            <span id="cart-item-count">6</span> items in your cart
+          </p>
+        </div>
+        <a href="#" class="btn btn-outline-success">
+          <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+        </a>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <div class="row g-4">
+        <!-- Cart Items Column -->
+        <div class="col-lg-8">
+          <!-- PRODUCT 1 -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img src="dolo.jpeg" class="product-image" alt="Dolo 650" />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">Dolo 650 Tablet</h5>
+                      <p class="text-muted small mb-1">Micro Labs Ltd.</p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
 
-</body>
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">1</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="35"
+                        >35</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 2 -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img
+                  src="vitamin c.jpeg"
+                  class="product-image"
+                  alt="Vitamin C"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">Vitamin C Tablets</h5>
+                      <p class="text-muted small mb-1">HealthKart</p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">2</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="250"
+                        >250</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 3 -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img src="foracort.webp" class="product-image" alt="Foracort" />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">Foracort 200 Rotacaps</h5>
+                      <p class="text-muted small mb-1">Cipla Ltd.</p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">2</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="185"
+                        >185</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 4 (NEW) -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img
+                  src="PANTOCID-40.jpg"
+                  class="product-image"
+                  alt="Pantocid 40"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">Pantocid 40mg Tablet</h5>
+                      <p class="text-muted small mb-1">
+                        Sun Pharmaceutical Industries Ltd
+                      </p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">1</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="165"
+                        >165</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 5 (NEW) -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img
+                  src="VOLINI.webp"
+                  class="product-image"
+                  alt="Volini Spray"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">
+                        Volini Pain Relief Spray (100g)
+                      </h5>
+                      <p class="text-muted small mb-1">
+                        Sun Pharma Consumer Healthcare
+                      </p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">1</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="245"
+                        >245</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRODUCT 6 (NEW) -->
+          <div class="card cart-card shadow-sm mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center p-3">
+                <img src="REVITAL.jpeg" class="product-image" alt="Revital H" />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5 class="fw-bold mb-1">
+                        Revital H Daily Health Supplement (30 Capsules)
+                      </h5>
+                      <p class="text-muted small mb-1">
+                        Sun Pharma Consumer Healthcare
+                      </p>
+                      <span class="stock"
+                        ><i class="bi bi-check-circle-fill me-1"></i>In
+                        Stock</span
+                      >
+                      <p class="delivery">
+                        <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
+                      </p>
+                    </div>
+                    <button
+                      class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
+                    >
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top"
+                  >
+                    <div class="quantity-box">
+                      <button class="quantity-btn minus">
+                        <i class="bi bi-dash"></i>
+                      </button>
+                      <span class="qty">1</span>
+                      <button class="quantity-btn plus">
+                        <i class="bi bi-plus"></i>
+                      </button>
+                    </div>
+                    <span class="price"
+                      >₹<span class="product-price" data-price="310"
+                        >310</span
+                      ></span
+                    >
+                  </div>
+
+                  <div class="mt-2">
+                    <button
+                      class="btn btn-sm btn-light text-muted border save-wishlist-btn"
+                    >
+                      <i class="bi bi-heart me-1"></i>Save for Later
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Column -->
+        <div class="col-lg-4">
+          <div class="card shadow-sm order-summary">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-receipt me-2"></i>Order Summary
+              </h5>
+            </div>
+
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-3">
+                <span>Subtotal</span>
+                <span id="subtotal">₹1,560</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-3">
+                <span>Discount</span>
+                <span class="text-success">- ₹100</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-3">
+                <span>Delivery</span>
+                <span class="text-success">FREE</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-3">
+                <span>GST</span>
+                <span id="gst">₹78</span>
+              </div>
+
+              <hr />
+
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h5 class="fw-bold mb-0">Total</h5>
+                <h5 class="fw-bold text-success mb-0" id="total">₹1,538</h5>
+              </div>
+
+              <div class="coupon-section mt-4">
+                <label class="fw-semibold mb-2">Have a coupon?</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter coupon code"
+                  />
+                  <button class="btn btn-outline-success" type="button">
+                    Apply
+                  </button>
+                </div>
+              </div>
+
+              <button class="btn btn-success w-100 mt-4 py-2 fw-semibold">
+                <i class="bi bi-lock-fill me-1"></i>Proceed to Checkout
+              </button>
+
+              <p class="text-center text-muted small mt-3 mb-0">
+                <i class="bi bi-shield-check me-1"></i>Secure checkout
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // ============================
+      // CART ELEMENTS
+      // ============================
+
+      const cartContainer = document.querySelector(".col-lg-8");
+      const subtotalElement = document.getElementById("subtotal");
+      const gstElement = document.getElementById("gst");
+      const totalElement = document.getElementById("total");
+      const cartItemCountElement = document.getElementById("cart-item-count");
+      const cartBadgeElement = document.getElementById("cart-badge");
+
+      const discount = 100;
+      const gstRate = 5;
+
+      // ============================
+      // WISHLIST STORAGE
+      // ============================
+
+      function getWishlist() {
+        return JSON.parse(localStorage.getItem("wishlist")) || [];
+      }
+
+      function saveWishlist(wishlist) {
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      }
+
+      // ============================
+      // UPDATE WISHLIST BADGE
+      // ============================
+
+      function updateWishlistBadge() {
+        const wishlist = getWishlist();
+
+        const wishlistBadge = document.getElementById("wishlist-badge");
+
+        if (wishlistBadge) {
+          wishlistBadge.textContent = wishlist.length;
+        }
+      }
+
+      // ============================
+      // CART TOTAL CALCULATION
+      // ============================
+
+      function calculateTotal() {
+        const products = document.querySelectorAll(".cart-card");
+
+        let subtotal = 0;
+        let totalItems = 0;
+
+        products.forEach(function (product) {
+          const quantity = parseInt(product.querySelector(".qty").textContent);
+
+          const unitPrice = parseFloat(
+            product.querySelector(".product-price").dataset.price,
+          );
+
+          subtotal += quantity * unitPrice;
+          totalItems += quantity;
+        });
+
+        // Discount
+        const appliedDiscount = subtotal > 0 ? Math.min(discount, subtotal) : 0;
+
+        // GST
+        const gst = (subtotal * gstRate) / 100;
+
+        // Delivery
+        const delivery = 0;
+
+        // Final total
+        const total = subtotal - appliedDiscount + gst + delivery;
+
+        // Update price values
+        subtotalElement.textContent = "₹" + subtotal.toFixed(0);
+
+        gstElement.textContent = "₹" + gst.toFixed(0);
+
+        totalElement.textContent = "₹" + total.toFixed(0);
+
+        // Update cart quantity
+        cartItemCountElement.textContent = totalItems;
+        cartBadgeElement.textContent = totalItems;
+
+        // Update discount
+        const discountElement = document.querySelector(
+          ".order-summary .text-success",
+        );
+
+        if (discountElement) {
+          discountElement.textContent = "- ₹" + appliedDiscount.toFixed(0);
+        }
+
+        // Empty cart
+        if (products.length === 0) {
+          cartContainer.innerHTML = `
+
+                <div class="card shadow-sm text-center p-5">
+
+                    <i class="bi bi-cart-x text-success"
+                       style="font-size:60px;"></i>
+
+                    <h4 class="fw-bold mt-3">
+                        Your Cart is Empty
+                    </h4>
+
+                    <p class="text-muted">
+                        Add some medicines to continue shopping.
+                    </p>
+
+                    <a href="#"
+                       class="btn btn-success">
+
+                        <i class="bi bi-shop me-1"></i>
+                        Continue Shopping
+
+                    </a>
+
+                </div>
+
+            `;
+        }
+      }
+
+      // ============================
+      // ADD PRODUCT TO WISHLIST
+      // ============================
+
+      function addToWishlist(product) {
+        const wishlist = getWishlist();
+
+        const productName = product.querySelector("h5").textContent;
+
+        // Check duplicate
+        const alreadySaved = wishlist.some(function (item) {
+          return item.name === productName;
+        });
+
+        if (alreadySaved) {
+          alert("This product is already in your wishlist.");
+
+          return;
+        }
+
+        // Create product object
+        const productData = {
+          name: productName,
+
+          company: product.querySelector(".text-muted.small").textContent,
+
+          image: product.querySelector(".product-image").getAttribute("src"),
+
+          price: product.querySelector(".product-price").dataset.price,
+        };
+
+        // Add to wishlist
+        wishlist.push(productData);
+
+        saveWishlist(wishlist);
+
+        // Remove from cart
+        product.remove();
+
+        // Update everything
+        calculateTotal();
+        updateWishlistBadge();
+
+        alert("Product saved to wishlist!");
+      }
+
+      // ============================
+      // MOVE WISHLIST PRODUCT TO CART
+      // ============================
+
+      function moveWishlistProductToCart(item) {
+        const cartColumn = document.querySelector(".col-lg-8");
+
+        // Check if product already exists
+        const existingProducts = document.querySelectorAll(".cart-card");
+
+        let existingProduct = null;
+
+        existingProducts.forEach(function (product) {
+          const name = product.querySelector("h5").textContent;
+
+          if (name === item.name) {
+            existingProduct = product;
+          }
+        });
+
+        // If already in cart
+        if (existingProduct) {
+          const quantity = existingProduct.querySelector(".qty");
+
+          quantity.textContent = parseInt(quantity.textContent) + 1;
+
+          calculateTotal();
+
+          return;
+        }
+
+        // Create new cart product
+        const newProduct = document.createElement("div");
+
+        newProduct.className = "card cart-card shadow-sm mb-3";
+
+        newProduct.innerHTML = `
+
+            <div class="row g-0 align-items-center">
+
+                <div class="col-md-3 text-center p-3">
+
+                    <img src="${item.image}"
+                         class="product-image"
+                         alt="${item.name}">
+
+                </div>
+
+
+                <div class="col-md-9">
+
+                    <div class="card-body">
+
+                        <div class="d-flex justify-content-between align-items-start">
+
+                            <div>
+
+                                <h5 class="fw-bold mb-1">
+                                    ${item.name}
+                                </h5>
+
+                                <p class="text-muted small mb-1">
+                                    ${item.company}
+                                </p>
+
+                                <span class="stock">
+
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                    In Stock
+
+                                </span>
+
+                                <p class="delivery">
+
+                                    <i class="bi bi-truck me-1"></i>
+                                    Delivery by Tomorrow
+
+                                </p>
+
+                            </div>
+
+
+                            <button
+                                class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn">
+
+                                <i class="bi bi-trash"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <div class="d-flex align-items-center justify-content-between mt-3 pt-2 border-top">
+
+                            <div class="quantity-box">
+
+                                <button class="quantity-btn minus">
+
+                                    <i class="bi bi-dash"></i>
+
+                                </button>
+
+
+                                <span class="qty">
+                                    1
+                                </span>
+
+
+                                <button class="quantity-btn plus">
+
+                                    <i class="bi bi-plus"></i>
+
+                                </button>
+
+                            </div>
+
+
+                            <span class="price">
+
+                                ₹<span class="product-price"
+                                       data-price="${item.price}">
+
+                                    ${item.price}
+
+                                </span>
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="mt-2">
+
+                            <button
+                                class="btn btn-sm btn-light text-muted border save-wishlist-btn">
+
+                                <i class="bi bi-heart me-1"></i>
+                                Save for Later
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+        cartColumn.appendChild(newProduct);
+
+        // Attach events to new product
+        attachProductEvents(newProduct);
+
+        // Update totals
+        calculateTotal();
+      }
+
+      // ============================
+      // PRODUCT EVENTS
+      // ============================
+
+      function attachProductEvents(product) {
+        const minusButton = product.querySelector(".minus");
+
+        const plusButton = product.querySelector(".plus");
+
+        const deleteButton = product.querySelector(".delete-btn");
+
+        const saveButton = product.querySelector(".save-wishlist-btn");
+
+        const quantity = product.querySelector(".qty");
+
+        // PLUS
+        plusButton.addEventListener("click", function () {
+          let currentQuantity = parseInt(quantity.textContent);
+
+          currentQuantity++;
+
+          quantity.textContent = currentQuantity;
+
+          calculateTotal();
+        });
+
+        // MINUS
+        minusButton.addEventListener("click", function () {
+          let currentQuantity = parseInt(quantity.textContent);
+
+          if (currentQuantity > 1) {
+            currentQuantity--;
+
+            quantity.textContent = currentQuantity;
+
+            calculateTotal();
+          }
+        });
+
+        // DELETE
+        deleteButton.addEventListener("click", function () {
+          product.remove();
+
+          calculateTotal();
+        });
+
+        // SAVE FOR LATER
+        saveButton.addEventListener("click", function () {
+          addToWishlist(product);
+        });
+      }
+
+      // ============================
+      // ATTACH EVENTS TO EXISTING PRODUCTS
+      // ============================
+
+      function attachCartEvents() {
+        const products = document.querySelectorAll(".cart-card");
+
+        products.forEach(function (product) {
+          attachProductEvents(product);
+        });
+      }
+
+      // ============================
+      // CHECK FOR WISHLIST MOVE
+      // ============================
+
+      function checkWishlistMove() {
+        const item = JSON.parse(localStorage.getItem("wishlistMoveToCart"));
+
+        if (!item) {
+          return;
+        }
+
+        // Add product to cart
+        moveWishlistProductToCart(item);
+
+        // Remove temporary storage
+        localStorage.removeItem("wishlistMoveToCart");
+      }
+
+      // ============================
+      // START
+      // ============================
+
+      attachCartEvents();
+
+      calculateTotal();
+
+      updateWishlistBadge();
+
+      checkWishlistMove();
+    </script>
+  </body>
 </html>
