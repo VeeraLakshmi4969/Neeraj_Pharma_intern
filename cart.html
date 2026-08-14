@@ -906,48 +906,85 @@
       // ADD PRODUCT TO WISHLIST
       // ============================
 
-      function addToWishlist(product) {
-        let wishlist = getWishlist();
-        const productName = product.querySelector("h5").textContent.trim();
+      function normalizeProductName(name) {
+        return String(name || "")
+          .trim()
+          .replace(/\\s+/g, " ")
+          .toLowerCase();
+      }
 
-        const existingIndex = wishlist.findIndex(function (item) {
-          return item.name === productName;
+      function removeDuplicateWishlistItems() {
+        const wishlist = getWishlist();
+        const unique = [];
+        const seen = new Set();
+
+        wishlist.forEach(function (item) {
+          const key = normalizeProductName(item.name);
+
+          if (!seen.has(key)) {
+            seen.add(key);
+            item.quantity = 1;
+            unique.push(item);
+          }
         });
 
-        // Clicking a filled heart removes it from Wishlist.
+        if (unique.length !== wishlist.length) {
+          saveWishlist(unique);
+        }
+
+        return unique;
+      }
+
+      function addToWishlist(product) {
+        let wishlist = removeDuplicateWishlistItems();
+
+        const productName = product.querySelector("h5").textContent.trim();
+        const productKey = normalizeProductName(productName);
+
+        const existingIndex = wishlist.findIndex(function (item) {
+          return normalizeProductName(item.name) === productKey;
+        });
+
+        // Already in Wishlist -> remove it.
         if (existingIndex !== -1) {
           wishlist.splice(existingIndex, 1);
           saveWishlist(wishlist);
           updateWishlistButtons();
           updateWishlistBadge();
+          renderWishlistPage();
           return;
         }
 
-        // Only add when the user clicks Save for Later.
+        // Add exactly ONE wishlist entry.
         wishlist.push({
           name: productName,
           company: product.querySelector(".text-muted.small").textContent.trim(),
           image: product.querySelector(".product-image").getAttribute("src"),
-          price: product.querySelector(".product-price").dataset.price
+          price: product.querySelector(".product-price").dataset.price,
+          quantity: 1
         });
 
         saveWishlist(wishlist);
 
-        // IMPORTANT: product remains in Cart.
+        // Keep the product in Cart.
         updateWishlistButtons();
         updateWishlistBadge();
+        renderWishlistPage();
       }
+
 
       function updateWishlistButtons() {
         const wishlist = getWishlist();
 
         document.querySelectorAll(".cart-card").forEach(function (product) {
-          const name = product.querySelector("h5").textContent.trim();
+          const name = normalizeProductName(
+            product.querySelector("h5").textContent
+          );
           const button = product.querySelector(".save-wishlist-btn");
           if (!button) return;
 
           const saved = wishlist.some(function (item) {
-            return item.name === name;
+            return normalizeProductName(item.name) === name;
           });
 
           if (saved) {
@@ -1205,7 +1242,7 @@
       function renderWishlistPage() {
         const list = document.getElementById("wishlist-products");
         const count = document.getElementById("wishlist-page-count");
-        const wishlist = getWishlist();
+        const wishlist = removeDuplicateWishlistItems();
 
         count.textContent = wishlist.length;
         list.innerHTML = "";
@@ -1238,6 +1275,7 @@
                 <h5 class="fw-bold">${item.name}</h5>
                 <p class="text-muted small">${item.company}</p>
                 <h5 class="text-success fw-bold">₹${item.price}</h5>
+                <p class="text-muted small mb-2">Quantity: 1</p>
                 <div class="d-flex gap-2 mt-3">
                   <button class="btn btn-success flex-grow-1 add-wishlist-cart">
                     <i class="bi bi-cart-plus me-1"></i>Add to Cart
@@ -1297,6 +1335,9 @@
       });
 
       calculateTotal();
+      // Remove any old duplicate wishlist entries on startup.
+      removeDuplicateWishlistItems();
+
       updateWishlistBadge();
       updateWishlistButtons();
 
