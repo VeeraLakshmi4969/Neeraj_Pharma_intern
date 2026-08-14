@@ -142,6 +142,22 @@
         color: #212529;
       }
 
+      /* Wishlist button states */
+      .save-wishlist-btn {
+        transition: 0.2s ease;
+      }
+
+      .save-wishlist-btn.wishlisted {
+        color: #198754 !important;
+        border-color: #198754 !important;
+        background: #e8f5ee !important;
+        font-weight: 600;
+      }
+
+      .save-wishlist-btn.wishlisted i {
+        color: #198754 !important;
+      }
+
       /* Quantity Box Controls */
       .quantity-box {
         display: flex;
@@ -259,13 +275,13 @@
           </form>
 
           <div class="icon-group d-flex align-items-center">
-            <a href="wishlist.html" class="icon" title="Wishlist">
+            <a href="#" class="icon" id="wishlist-link" title="Wishlist">
               <i class="bi bi-heart"></i>
-              <span class="badge">2</span>
+              <span class="badge" id="wishlist-badge">0</span>
             </a>
             <a href="#" class="icon">
               <i class="bi bi-cart3"></i>
-              <span class="badge" id="cart-badge">6</span>
+              <span class="badge" id="cart-badge">0</span>
             </a>
             <a href="#" class="icon">
               <i class="bi bi-person-circle"></i>
@@ -283,7 +299,7 @@
     </div>
 
     <!-- Main Cart Section -->
-    <div class="container my-4">
+    <div class="container my-4" id="cart-page">
       <!-- Cart Heading -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
@@ -291,7 +307,7 @@
             <i class="bi bi-cart-fill text-success me-2"></i>Shopping Cart
           </h3>
           <p class="text-muted mb-0">
-            <span id="cart-item-count">6</span> items in your cart
+            <span id="cart-item-count">0</span> items in your cart
           </p>
         </div>
         <a href="#" class="btn btn-outline-success">
@@ -622,6 +638,7 @@
                     <div>
                       <h5 class="fw-bold mb-1">
                         Revital H Daily Health Supplement (30 Capsules)
+                        
                       </h5>
                       <p class="text-muted small mb-1">
                         Sun Pharma Consumer Healthcare
@@ -633,6 +650,7 @@
                       <p class="delivery">
                         <i class="bi bi-truck me-1"></i>Delivery by Tomorrow
                       </p>
+
                     </div>
                     <button
                       class="btn btn-outline-danger btn-sm rounded-circle p-2 delete-btn"
@@ -739,6 +757,25 @@
       </div>
     </div>
 
+
+    <!-- MY WISHLIST -->
+    <div id="wishlist-page" class="container my-4" style="display:none;">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h3 class="fw-bold mb-1">
+            <i class="bi bi-heart-fill text-success me-2"></i>My Wishlist
+          </h3>
+          <p class="text-muted mb-0">
+            <span id="wishlist-page-count">0</span> products in your wishlist
+          </p>
+        </div>
+        <button id="back-to-cart-btn" class="btn btn-outline-success">
+          <i class="bi bi-cart me-1"></i>Back to Cart
+        </button>
+      </div>
+      <div id="wishlist-products" class="row g-4"></div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       // ============================
@@ -789,18 +826,18 @@
         const products = document.querySelectorAll(".cart-card");
 
         let subtotal = 0;
-        let totalItems = 0;
 
         products.forEach(function (product) {
           const quantity = parseInt(product.querySelector(".qty").textContent);
-
           const unitPrice = parseFloat(
             product.querySelector(".product-price").dataset.price,
           );
 
           subtotal += quantity * unitPrice;
-          totalItems += quantity;
         });
+
+        // Count products, not their quantities.
+        const totalItems = products.length;
 
         // Discount
         const appliedDiscount = subtotal > 0 ? Math.min(discount, subtotal) : 0;
@@ -870,45 +907,59 @@
       // ============================
 
       function addToWishlist(product) {
-        const wishlist = getWishlist();
+        let wishlist = getWishlist();
+        const productName = product.querySelector("h5").textContent.trim();
 
-        const productName = product.querySelector("h5").textContent;
-
-        // Check duplicate
-        const alreadySaved = wishlist.some(function (item) {
+        const existingIndex = wishlist.findIndex(function (item) {
           return item.name === productName;
         });
 
-        if (alreadySaved) {
-          alert("This product is already in your wishlist.");
-
+        // Clicking a filled heart removes it from Wishlist.
+        if (existingIndex !== -1) {
+          wishlist.splice(existingIndex, 1);
+          saveWishlist(wishlist);
+          updateWishlistButtons();
+          updateWishlistBadge();
           return;
         }
 
-        // Create product object
-        const productData = {
+        // Only add when the user clicks Save for Later.
+        wishlist.push({
           name: productName,
-
-          company: product.querySelector(".text-muted.small").textContent,
-
+          company: product.querySelector(".text-muted.small").textContent.trim(),
           image: product.querySelector(".product-image").getAttribute("src"),
-
-          price: product.querySelector(".product-price").dataset.price,
-        };
-
-        // Add to wishlist
-        wishlist.push(productData);
+          price: product.querySelector(".product-price").dataset.price
+        });
 
         saveWishlist(wishlist);
 
-        // Remove from cart
-        product.remove();
-
-        // Update everything
-        calculateTotal();
+        // IMPORTANT: product remains in Cart.
+        updateWishlistButtons();
         updateWishlistBadge();
+      }
 
-        alert("Product saved to wishlist!");
+      function updateWishlistButtons() {
+        const wishlist = getWishlist();
+
+        document.querySelectorAll(".cart-card").forEach(function (product) {
+          const name = product.querySelector("h5").textContent.trim();
+          const button = product.querySelector(".save-wishlist-btn");
+          if (!button) return;
+
+          const saved = wishlist.some(function (item) {
+            return item.name === name;
+          });
+
+          if (saved) {
+            button.classList.add("wishlisted");
+            button.innerHTML =
+              '<i class="bi bi-heart-fill me-1"></i>Wishlisted';
+          } else {
+            button.classList.remove("wishlisted");
+            button.innerHTML =
+              '<i class="bi bi-heart me-1"></i>Save for Later';
+          }
+        });
       }
 
       // ============================
@@ -931,14 +982,11 @@
           }
         });
 
-        // If already in cart
+        // If the product is already in the cart:
+        // Do NOT show "already in cart" and do NOT create a duplicate.
+        // The product is already available in the cart.
         if (existingProduct) {
-          const quantity = existingProduct.querySelector(".qty");
-
-          quantity.textContent = parseInt(quantity.textContent) + 1;
-
           calculateTotal();
-
           return;
         }
 
@@ -1067,8 +1115,9 @@
         // Attach events to new product
         attachProductEvents(newProduct);
 
-        // Update totals
+        // Update totals and wishlist state
         calculateTotal();
+        updateWishlistButtons();
       }
 
       // ============================
@@ -1153,15 +1202,103 @@
         localStorage.removeItem("wishlistMoveToCart");
       }
 
+      function renderWishlistPage() {
+        const list = document.getElementById("wishlist-products");
+        const count = document.getElementById("wishlist-page-count");
+        const wishlist = getWishlist();
+
+        count.textContent = wishlist.length;
+        list.innerHTML = "";
+
+        if (wishlist.length === 0) {
+          list.innerHTML = `
+            <div class="col-12">
+              <div class="card shadow-sm text-center p-5">
+                <i class="bi bi-heart text-success" style="font-size:60px;"></i>
+                <h4 class="fw-bold mt-3">Your Wishlist is Empty</h4>
+                <p class="text-muted">
+                  Click "Save for Later" on a cart product to add it here.
+                </p>
+              </div>
+            </div>`;
+          return;
+        }
+
+        wishlist.forEach(function (item, index) {
+          const col = document.createElement("div");
+          col.className = "col-md-6 col-lg-4";
+
+          col.innerHTML = `
+            <div class="card shadow-sm h-100" style="border:none;border-radius:12px;">
+              <div class="card-body">
+                <div class="text-center mb-3">
+                  <img src="${item.image}" alt="${item.name}"
+                       style="width:120px;height:120px;object-fit:contain;">
+                </div>
+                <h5 class="fw-bold">${item.name}</h5>
+                <p class="text-muted small">${item.company}</p>
+                <h5 class="text-success fw-bold">₹${item.price}</h5>
+                <div class="d-flex gap-2 mt-3">
+                  <button class="btn btn-success flex-grow-1 add-wishlist-cart">
+                    <i class="bi bi-cart-plus me-1"></i>Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger remove-wishlist">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>`;
+
+          col.querySelector(".add-wishlist-cart").addEventListener("click", function () {
+            moveWishlistProductToCart(item);
+            renderWishlistPage();
+            updateWishlistBadge();
+            updateWishlistButtons();
+          });
+
+          col.querySelector(".remove-wishlist").addEventListener("click", function () {
+            const current = getWishlist();
+            current.splice(index, 1);
+            saveWishlist(current);
+            renderWishlistPage();
+            updateWishlistBadge();
+            updateWishlistButtons();
+          });
+
+          list.appendChild(col);
+        });
+      }
+
+      function showWishlistPage() {
+        document.getElementById("cart-page").style.display = "none";
+        document.getElementById("wishlist-page").style.display = "block";
+        renderWishlistPage();
+      }
+
+      function showCartPage() {
+        document.getElementById("wishlist-page").style.display = "none";
+        document.getElementById("cart-page").style.display = "block";
+        calculateTotal();
+      }
+
       // ============================
       // START
       // ============================
 
       attachCartEvents();
 
-      calculateTotal();
+      document.getElementById("wishlist-link").addEventListener("click", function (event) {
+        event.preventDefault();
+        showWishlistPage();
+      });
 
+      document.getElementById("back-to-cart-btn").addEventListener("click", function () {
+        showCartPage();
+      });
+
+      calculateTotal();
       updateWishlistBadge();
+      updateWishlistButtons();
 
       checkWishlistMove();
     </script>
