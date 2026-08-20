@@ -1162,54 +1162,108 @@
       // ============================
 
       function attachProductEvents(product) {
-        const minusButton = product.querySelector(".minus");
 
-        const plusButton = product.querySelector(".plus");
+    const minusButton = product.querySelector(".minus");
+    const plusButton = product.querySelector(".plus");
+    const deleteButton = product.querySelector(".delete-btn");
+    const saveButton = product.querySelector(".save-wishlist-btn");
+    const quantity = product.querySelector(".qty");
 
-        const deleteButton = product.querySelector(".delete-btn");
 
-        const saveButton = product.querySelector(".save-wishlist-btn");
+    // ============================
+    // PLUS
+    // ============================
 
-        const quantity = product.querySelector(".qty");
+    plusButton.addEventListener("click", function () {
 
-        // PLUS
-        plusButton.addEventListener("click", function () {
-          let currentQuantity = parseInt(quantity.textContent);
+        let currentQuantity =
+            parseInt(quantity.textContent);
 
-          currentQuantity++;
+        currentQuantity++;
 
-          quantity.textContent = currentQuantity;
+        quantity.textContent =
+            currentQuantity;
 
-          calculateTotal();
-        });
+        calculateTotal();
 
-        // MINUS
-        minusButton.addEventListener("click", function () {
-          let currentQuantity = parseInt(quantity.textContent);
+        saveCartQuantity(product, currentQuantity);
+    });
 
-          if (currentQuantity > 1) {
+
+    // ============================
+    // MINUS
+    // ============================
+
+    minusButton.addEventListener("click", function () {
+
+        let currentQuantity =
+            parseInt(quantity.textContent);
+
+        if (currentQuantity > 1) {
+
             currentQuantity--;
 
-            quantity.textContent = currentQuantity;
+            quantity.textContent =
+                currentQuantity;
 
             calculateTotal();
-          }
-        });
 
-        // DELETE
-        deleteButton.addEventListener("click", function () {
-          product.remove();
+            saveCartQuantity(product, currentQuantity);
+        }
+    });
 
-          calculateTotal();
-        });
 
-        // SAVE FOR LATER
-        saveButton.addEventListener("click", function () {
-          addToWishlist(product);
-        });
-      }
+    // ============================
+    // DELETE
+    // ============================
 
-      // ============================
+    deleteButton.addEventListener("click", function () {
+
+        product.remove();
+
+        calculateTotal();
+
+    });
+
+
+    // ============================
+    // SAVE FOR LATER
+    // ============================
+
+    saveButton.addEventListener("click", function () {
+
+        addToWishlist(product);
+
+    });
+
+}
+
+      function saveCartQuantity(product, quantity) {
+
+    let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+
+    const productName =
+        product.querySelector("h5").textContent.trim();
+
+
+    const cartItem =
+        cart.find(item => item.name === productName);
+
+
+    if (cartItem) {
+
+        cartItem.quantity = quantity;
+
+        localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+        );
+
+    }
+}
+// ============================
       // ATTACH EVENTS TO EXISTING PRODUCTS
       // ============================
 
