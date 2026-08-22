@@ -1,26 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Product Details - Neeraj Pharma</title>
 
-    <!-- Bootstrap -->
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="neeraj pharma.jpeg"
+    >
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
     <style>
+
         * {
             box-sizing: border-box;
         }
@@ -70,6 +79,35 @@
             color: #198754 !important;
         }
 
+        .nav-icon {
+            color: #333;
+            font-size: 22px;
+            margin-left: 20px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: #198754;
+        }
+
+        .icon-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            min-width: 18px;
+            height: 18px;
+            background: red;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+        }
+
         .details-section {
             padding: 50px 0;
         }
@@ -113,21 +151,46 @@
             line-height: 1.7;
         }
 
-        .wishlist-btn {
-            font-size: 18px;
+        .action-button {
+            font-size: 17px;
         }
+
+        @media (max-width: 767px) {
+
+            .brand-text {
+                display: none;
+            }
+
+            .logo {
+                max-width: 140px;
+            }
+
+            .product-detail-image {
+                height: 280px;
+            }
+
+            .product-title {
+                font-size: 25px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
 
 <nav class="navbar navbar-expand-lg sticky-top">
 
     <div class="container">
 
-        <a class="navbar-brand" href="products.html">
+        <a
+            class="navbar-brand"
+            href="products.html"
+        >
 
             <img
                 src="neeraj pharma.jpeg"
@@ -137,7 +200,9 @@
 
             <div class="brand-text">
 
-                <h4>Neeraj Pharma</h4>
+                <h4>
+                    Neeraj Pharma
+                </h4>
 
                 <small>
                     Your Trusted Healthcare Partner
@@ -156,19 +221,41 @@
             >
                 Products
             </a>
-<a
-    href="cart.html"
-    class="text-dark fs-4 ms-3"
-    title="Wishlist"
->
-    <i class="bi bi-heart"></i>
-</a>
+
 
             <a
-                href="#"
-                class="text-dark fs-4 ms-3"
+                href="wishlist.html"
+                class="nav-icon"
+                title="Wishlist"
             >
+
+                <i class="bi bi-heart"></i>
+
+                <span
+                    id="wishlist-badge"
+                    class="icon-badge"
+                >
+                    0
+                </span>
+
+            </a>
+
+
+            <a
+                href="cart.html"
+                class="nav-icon"
+                title="Cart"
+            >
+
                 <i class="bi bi-cart3"></i>
+
+                <span
+                    id="cart-badge"
+                    class="icon-badge"
+                >
+                    0
+                </span>
+
             </a>
 
         </div>
@@ -178,30 +265,32 @@
 </nav>
 
 
-<!-- ================= PRODUCT DETAILS ================= -->
-
 <section class="details-section">
 
     <div class="container">
-
-        <!-- Back button -->
 
         <a
             href="products.html"
             class="btn btn-outline-success mb-4"
         >
+
             <i class="bi bi-arrow-left me-1"></i>
+
             Back to Products
+
         </a>
 
 
-        <div class="card details-card shadow-sm">
+        <div
+            id="details-container"
+            class="card details-card shadow-sm"
+        >
 
             <div class="row align-items-center">
 
-                <!-- Product Image -->
-
-                <div class="col-md-6 text-center">
+                <div
+                    class="col-md-6 text-center"
+                >
 
                     <img
                         id="productImage"
@@ -212,8 +301,6 @@
 
                 </div>
 
-
-                <!-- Product Information -->
 
                 <div class="col-md-6">
 
@@ -234,8 +321,11 @@
 
 
                     <p class="stock">
+
                         <i class="bi bi-check-circle-fill me-1"></i>
+
                         In Stock
+
                     </p>
 
 
@@ -263,25 +353,31 @@
                     </p>
 
 
-                    <!-- Buttons -->
-
-                    <div class="d-flex gap-3 mt-4">
+                    <div
+                        class="d-flex gap-3 mt-4 flex-wrap"
+                    >
 
                         <button
                             id="wishlistButton"
-                            class="btn btn-outline-success wishlist-btn"
+                            class="btn btn-outline-success action-button"
                         >
+
                             <i class="bi bi-heart me-1"></i>
+
                             Add to Wishlist
+
                         </button>
 
 
                         <button
                             id="cartButton"
-                            class="btn btn-success wishlist-btn"
+                            class="btn btn-success action-button"
                         >
+
                             <i class="bi bi-cart-plus me-1"></i>
+
                             Add to Cart
+
                         </button>
 
                     </div>
@@ -297,218 +393,107 @@
 </section>
 
 
+<script src="products.js"></script>
+
+
 <script>
 
-    // =====================================
-    // PRODUCT DATA
-    // =====================================
-
-    const products = [
-
-        {
-            id: 1,
-            name: "Dolo 650 Tablet",
-            company: "Micro Labs Ltd.",
-            price: 35,
-            image: "dolo.jpeg",
-            description:
-                "Dolo 650 Tablet is one of the healthcare products available at Neeraj Pharma."
-        },
-
-        {
-            id: 2,
-            name: "Vitamin C Tablets",
-            company: "HealthKart",
-            price: 250,
-            image: "vitamin c.jpeg",
-            description:
-                "Vitamin C Tablets are available at Neeraj Pharma."
-        },
-
-        {
-            id: 3,
-            name: "Foracort 200 Rotacaps",
-            company: "Cipla Ltd.",
-            price: 185,
-            image: "foracort.webp",
-            description:
-                "Foracort 200 Rotacaps are available at Neeraj Pharma."
-        },
-
-        {
-            id: 4,
-            name: "Pantocid 40mg Tablet",
-            company: "Sun Pharmaceutical Industries Ltd",
-            price: 165,
-            image: "PANTOCID-40.jpg",
-            description:
-                "Pantocid 40mg Tablet is available at Neeraj Pharma."
-        },
-
-        {
-            id: 5,
-            name: "Volini Pain Relief Spray",
-            company: "Sun Pharma Consumer Healthcare",
-            price: 245,
-            image: "VOLINI.webp",
-            description:
-                "Volini Pain Relief Spray is available at Neeraj Pharma."
-        },
-
-        {
-            id: 6,
-            name: "Revital H",
-            company: "Sun Pharma Consumer Healthcare",
-            price: 310,
-            image: "REVITAL.jpeg",
-            description:
-                "Revital H is available at Neeraj Pharma."
-        }
-
-    ];
-
-
-    // =====================================
-    // GET PRODUCT ID FROM URL
-    // =====================================
-
-    const urlParams =
-        new URLSearchParams(window.location.search);
-
-    const productId =
-        Number(urlParams.get("id"));
-
-
-    // =====================================
-    // FIND PRODUCT
-    // =====================================
-
-    const product =
-        products.find(item => item.id === productId);
-
-
-    // =====================================
-    // DISPLAY PRODUCT
-    // =====================================
-
-    if (product) {
-
-        document.getElementById("productImage").src =
-            product.image;
-
-        document.getElementById("productImage").alt =
-            product.name;
-
-        document.getElementById("productName").textContent =
-            product.name;
-
-        document.getElementById("productCompany").textContent =
-            product.company;
-
-        document.getElementById("productPrice").textContent =
-            "₹" + product.price;
-
-        document.getElementById("productDescription").textContent =
-            product.description;
-
-    } else {
-
-        document.getElementById("productName").textContent =
-            "Product Not Found";
-
-        document.getElementById("productCompany").textContent =
-            "";
-
-        document.getElementById("productPrice").textContent =
-            "";
-
-        document.getElementById("productDescription").textContent =
-            "The requested product could not be found.";
-
-    }
-
-// =====================================
-// WISHLIST
-// =====================================
-
-// Get existing wishlist
-function getWishlist() {
-    return JSON.parse(localStorage.getItem("wishlist")) || [];
-}
-
-
-// Save wishlist
-function saveWishlist(wishlist) {
-    localStorage.setItem(
-        "wishlist",
-        JSON.stringify(wishlist)
-    );
-}
-
-
-// Add product to wishlist
-function addToWishlist() {
-
-    if (!product) {
-        return;
-    }
-
-    let wishlist = getWishlist();
-
-    // Check whether product is already in wishlist
-    const existingProduct = wishlist.find(
-        item => item.name === product.name
+const urlParams =
+    new URLSearchParams(
+        window.location.search
     );
 
 
-    // If already present, remove it
-    if (existingProduct) {
-
-        wishlist = wishlist.filter(
-            item => item.name !== product.name
-        );
-
-        saveWishlist(wishlist);
-
-        updateWishlistButton();
-
-        alert("Product removed from Wishlist");
-
-        return;
-    }
+const productId =
+    Number(
+        urlParams.get("id")
+    );
 
 
-    // Add product
-    wishlist.push({
-
-        name: product.name,
-
-        company: product.company,
-
-        image: product.image,
-
-        price: product.price,
-
-        quantity: 1
-
-    });
+const product =
+    getProductById(productId);
 
 
-    // Save to localStorage
-    saveWishlist(wishlist);
+const productImage =
+    document.getElementById(
+        "productImage"
+    );
+
+const productName =
+    document.getElementById(
+        "productName"
+    );
+
+const productCompany =
+    document.getElementById(
+        "productCompany"
+    );
+
+const productPrice =
+    document.getElementById(
+        "productPrice"
+    );
+
+const productDescription =
+    document.getElementById(
+        "productDescription"
+    );
+
+const wishlistButton =
+    document.getElementById(
+        "wishlistButton"
+    );
+
+const cartButton =
+    document.getElementById(
+        "cartButton"
+    );
 
 
-    // Change button appearance
-    updateWishlistButton();
+if (product) {
 
+    productImage.src =
+        product.image;
 
-    alert("Product added to Wishlist ❤️");
+    productImage.alt =
+        product.name;
+
+    productName.textContent =
+        product.name;
+
+    productCompany.textContent =
+        product.company;
+
+    productPrice.textContent =
+        "₹" + product.price;
+
+    productDescription.textContent =
+        product.description;
+
+} else {
+
+    productImage.style.display =
+        "none";
+
+    productName.textContent =
+        "Product Not Found";
+
+    productCompany.textContent =
+        "";
+
+    productPrice.textContent =
+        "";
+
+    productDescription.textContent =
+        "The requested product could not be found.";
+
+    wishlistButton.style.display =
+        "none";
+
+    cartButton.style.display =
+        "none";
 }
 
-
-// =====================================
-// UPDATE WISHLIST BUTTON
-// =====================================
 
 function updateWishlistButton() {
 
@@ -516,148 +501,95 @@ function updateWishlistButton() {
         return;
     }
 
-    const wishlist = getWishlist();
 
-    const exists = wishlist.some(
-        item => item.name === product.name
-    );
-
-    const button =
-        document.getElementById("wishlistButton");
+    const exists =
+        isProductWishlisted(
+            product.id
+        );
 
 
     if (exists) {
 
-        button.innerHTML =
+        wishlistButton.innerHTML =
             '<i class="bi bi-heart-fill me-1"></i> Wishlisted';
 
-        button.classList.remove(
+        wishlistButton.classList.remove(
             "btn-outline-success"
         );
 
-        button.classList.add(
+        wishlistButton.classList.add(
             "btn-success"
         );
 
     } else {
 
-        button.innerHTML =
+        wishlistButton.innerHTML =
             '<i class="bi bi-heart me-1"></i> Add to Wishlist';
 
-        button.classList.remove(
+        wishlistButton.classList.remove(
             "btn-success"
         );
 
-        button.classList.add(
+        wishlistButton.classList.add(
             "btn-outline-success"
         );
     }
 }
 
 
-// =====================================
-// BUTTON CLICK
-// =====================================
+wishlistButton.addEventListener(
+    "click",
+    function () {
 
-document
-    .getElementById("wishlistButton")
-    .addEventListener("click", addToWishlist);
+        if (!product) {
+            return;
+        }
+
+        toggleWishlist(product);
+
+        updateWishlistButton();
+
+        updateBadges();
+
+    }
+);
 
 
-// =====================================
-// CHECK INITIAL WISHLIST STATUS
-// =====================================
+cartButton.addEventListener(
+    "click",
+    function () {
+
+        if (!product) {
+            return;
+        }
+
+        addProductToCart(product);
+
+        cartButton.innerHTML =
+            '<i class="bi bi-check-circle me-1"></i> Added to Cart';
+
+        setTimeout(
+            function () {
+
+                cartButton.innerHTML =
+                    '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
+
+            },
+            1500
+        );
+
+        updateBadges();
+
+    }
+);
+
 
 updateWishlistButton();
 
-// =====================================
-// CART
-// =====================================
-
-// Get existing cart
-function getCart() {
-    return JSON.parse(localStorage.getItem("cart")) || [];
-}
-
-
-// Save cart
-function saveCart(cart) {
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
-}
-
-
-// Add product to cart
-function addToCart() {
-
-    if (!product) {
-        return;
-    }
-
-    let cart = getCart();
-
-
-    // Check if product already exists
-    const existingProduct = cart.find(
-        item => item.id === product.id
-    );
-
-
-    if (existingProduct) {
-
-        // Increase quantity
-        existingProduct.quantity++;
-
-    } else {
-
-        // Add new product
-        cart.push({
-
-            id: product.id,
-
-            name: product.name,
-
-            company: product.company,
-
-            price: product.price,
-
-            image: product.image,
-
-            quantity: 1
-
-        });
-    }
-
-
-    // Save cart
-    saveCart(cart);
-
-
-    // Change button
-    const cartButton =
-        document.getElementById("cartButton");
-
-    cartButton.innerHTML =
-        '<i class="bi bi-check-circle me-1"></i> Added to Cart';
-
-
-    alert("Product added to Cart 🛒");
-}
-
-
-// =====================================
-// CART BUTTON CLICK
-// =====================================
-
-document
-    .getElementById("cartButton")
-    .addEventListener("click", addToCart);
+updateBadges();
 
 </script>
 
-
 </body>
-</html>
 
+</html>

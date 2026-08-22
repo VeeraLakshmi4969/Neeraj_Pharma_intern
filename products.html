@@ -1,25 +1,35 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Neeraj Pharma - Products</title>
 
-    <!-- Bootstrap CSS -->
+    <link
+        rel="icon"
+        type="image/jpeg"
+        href="neeraj pharma.jpeg"
+    >
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     >
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
@@ -31,9 +41,8 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        /* Navbar */
         .navbar {
-            background: #ffffff;
+            background: white;
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
             padding: 10px 0;
         }
@@ -66,6 +75,7 @@
             color: #333 !important;
             font-weight: 600;
             margin: 0 8px;
+            transition: 0.3s;
         }
 
         .nav-link:hover,
@@ -73,9 +83,37 @@
             color: #198754 !important;
         }
 
-        /* Product section */
+        .nav-icon {
+            color: #333;
+            font-size: 22px;
+            margin-left: 20px;
+            text-decoration: none;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: #198754;
+        }
+
+        .icon-badge {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            min-width: 18px;
+            height: 18px;
+            background: red;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 4px;
+        }
+
         .products-section {
-            padding: 40px 0;
+            padding: 50px 0;
         }
 
         .product-card {
@@ -94,7 +132,7 @@
 
         .product-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: contain;
             padding: 20px;
         }
@@ -117,20 +155,42 @@
 
         .wishlist-btn {
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        @media (max-width: 767px) {
+
+            .brand-text {
+                display: none;
+            }
+
+            .logo {
+                max-width: 140px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
 
 <nav class="navbar navbar-expand-lg sticky-top">
+
     <div class="container">
 
-        <a class="navbar-brand" href="#">
+        <a
+            class="navbar-brand"
+            href="products.html"
+        >
+
             <img
                 src="neeraj pharma.jpeg"
                 class="logo img-fluid"
@@ -138,10 +198,17 @@
             >
 
             <div class="brand-text">
+
                 <h4>Neeraj Pharma</h4>
-                <small>Your Trusted Healthcare Partner</small>
+
+                <small>
+                    Your Trusted Healthcare Partner
+                </small>
+
             </div>
+
         </a>
+
 
         <button
             class="navbar-toggler"
@@ -149,67 +216,116 @@
             data-bs-toggle="collapse"
             data-bs-target="#navbarMenu"
         >
+
             <span class="navbar-toggler-icon"></span>
+
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarMenu">
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarMenu"
+        >
 
             <ul class="navbar-nav mx-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a
+                        class="nav-link"
+                        href="products.html"
+                    >
+                        Home
+                    </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="products.html">
+                    <a
+                        class="nav-link active"
+                        href="products.html"
+                    >
                         Products
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
                         Categories
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
                         Offers
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
                         Contact
                     </a>
                 </li>
 
             </ul>
 
+
             <div class="d-flex align-items-center">
 
-                <a href="#" class="text-dark fs-4 ms-3">
+                <a
+                    href="wishlist.html"
+                    class="nav-icon"
+                    title="Wishlist"
+                >
+
                     <i class="bi bi-heart"></i>
+
+                    <span
+                        id="wishlist-badge"
+                        class="icon-badge"
+                    >
+                        0
+                    </span>
+
                 </a>
 
-                <a href="#" class="text-dark fs-4 ms-3">
+
+                <a
+                    href="cart.html"
+                    class="nav-icon"
+                    title="Cart"
+                >
+
                     <i class="bi bi-cart3"></i>
+
+                    <span
+                        id="cart-badge"
+                        class="icon-badge"
+                    >
+                        0
+                    </span>
+
                 </a>
 
             </div>
 
         </div>
+
     </div>
+
 </nav>
 
-
-<!-- ================= PRODUCTS ================= -->
 
 <section class="products-section">
 
     <div class="container">
-
-        <!-- Heading -->
 
         <div class="text-center mb-5">
 
@@ -224,358 +340,220 @@
         </div>
 
 
-        <!-- Product Grid -->
-
-        <div class="row g-4">
-
-
-            <!-- PRODUCT 1 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="dolo.jpeg"
-                        class="product-image"
-                        alt="Dolo 650"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Dolo 650 Tablet
-                                </h5>
-
-                                <p class="company">
-                                    Micro Labs Ltd.
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹35
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                           <a
-    href="product-details.html?id=1"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT 2 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="vitamin c.jpeg"
-                        class="product-image"
-                        alt="Vitamin C"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Vitamin C Tablets
-                                </h5>
-
-                                <p class="company">
-                                    HealthKart
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹250
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                            <a
-    href="product-details.html?id=2"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT 3 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="foracort.webp"
-                        class="product-image"
-                        alt="Foracort"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Foracort 200 Rotacaps
-                                </h5>
-
-                                <p class="company">
-                                    Cipla Ltd.
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹185
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                            <a
-    href="product-details.html?id=3"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT 4 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="PANTOCID-40.jpg"
-                        class="product-image"
-                        alt="Pantocid 40"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Pantocid 40mg Tablet
-                                </h5>
-
-                                <p class="company">
-                                    Sun Pharmaceutical Industries Ltd
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹165
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                            <a
-    href="product-details.html?id=4"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT 5 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="VOLINI.webp"
-                        class="product-image"
-                        alt="Volini Spray"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Volini Pain Relief Spray
-                                </h5>
-
-                                <p class="company">
-                                    Sun Pharma Consumer Healthcare
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹245
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                            <a
-    href="product-details.html?id=5"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <!-- PRODUCT 6 -->
-
-            <div class="col-md-6 col-lg-4">
-
-                <div class="card product-card shadow-sm">
-
-                    <img
-                        src="REVITAL.jpeg"
-                        class="product-image"
-                        alt="Revital H"
-                    >
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between align-items-start">
-
-                            <div>
-                                <h5 class="product-name">
-                                    Revital H
-                                </h5>
-
-                                <p class="company">
-                                    Sun Pharma Consumer Healthcare
-                                </p>
-                            </div>
-
-                            <button class="btn btn-outline-success wishlist-btn">
-                                <i class="bi bi-heart"></i>
-                            </button>
-
-                        </div>
-
-                        <p class="price">
-                            ₹310
-                        </p>
-
-                        <div class="d-flex gap-2">
-
-                            <button class="btn btn-success flex-grow-1">
-                                Add to Cart
-                            </button>
-
-                            <a
-    href="product-details.html?id=6"
-    class="btn btn-outline-success"
->
-    View Details
-</a>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+        <div
+            id="product-grid"
+            class="row g-4"
+        ></div>
 
     </div>
 
 </section>
 
 
-<!-- Bootstrap JS -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="products.js"></script>
+
+
+<script>
+
+const productGrid =
+    document.getElementById(
+        "product-grid"
+    );
+
+
+products.forEach(function (product) {
+
+    const col =
+        document.createElement("div");
+
+    col.className =
+        "col-md-6 col-lg-4";
+
+
+    const wishlisted =
+        isProductWishlisted(
+            product.id
+        );
+
+
+    col.innerHTML = `
+
+        <div class="card product-card shadow-sm">
+
+            <img
+                src="${product.image}"
+                class="product-image"
+                alt="${product.name}"
+            >
+
+            <div class="card-body">
+
+                <div
+                    class="d-flex justify-content-between align-items-start"
+                >
+
+                    <div>
+
+                        <h5 class="product-name">
+                            ${product.name}
+                        </h5>
+
+                        <p class="company">
+                            ${product.company}
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        class="btn ${
+                            wishlisted
+                                ? "btn-success"
+                                : "btn-outline-success"
+                        } wishlist-btn"
+                        title="Wishlist"
+                    >
+
+                        <i class="bi ${
+                            wishlisted
+                                ? "bi-heart-fill"
+                                : "bi-heart"
+                        }"></i>
+
+                    </button>
+
+                </div>
+
+
+                <p class="price">
+                    ₹${product.price}
+                </p>
+
+
+                <div class="d-flex gap-2">
+
+                    <button
+                        class="btn btn-success flex-grow-1 add-cart-btn"
+                    >
+
+                        <i class="bi bi-cart-plus me-1"></i>
+
+                        Add to Cart
+
+                    </button>
+
+
+                    <a
+                        href="product-details.html?id=${product.id}"
+                        class="btn btn-outline-success"
+                    >
+
+                        View Details
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    // Wishlist
+
+    const wishlistButton =
+        col.querySelector(
+            ".wishlist-btn"
+        );
+
+
+    wishlistButton.addEventListener(
+        "click",
+        function () {
+
+            const added =
+                toggleWishlist(product);
+
+
+            if (added) {
+
+                wishlistButton.classList.remove(
+                    "btn-outline-success"
+                );
+
+                wishlistButton.classList.add(
+                    "btn-success"
+                );
+
+                wishlistButton.innerHTML =
+                    '<i class="bi bi-heart-fill"></i>';
+
+            } else {
+
+                wishlistButton.classList.remove(
+                    "btn-success"
+                );
+
+                wishlistButton.classList.add(
+                    "btn-outline-success"
+                );
+
+                wishlistButton.innerHTML =
+                    '<i class="bi bi-heart"></i>';
+            }
+
+        }
+    );
+
+
+    // Cart
+
+    const cartButton =
+        col.querySelector(
+            ".add-cart-btn"
+        );
+
+
+    cartButton.addEventListener(
+        "click",
+        function () {
+
+            addProductToCart(product);
+
+
+            cartButton.innerHTML =
+                '<i class="bi bi-check-circle me-1"></i> Added';
+
+
+            setTimeout(
+                function () {
+
+                    cartButton.innerHTML =
+                        '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
+
+                },
+                1200
+            );
+
+        }
+    );
+
+
+    productGrid.appendChild(col);
+
+});
+
+
+updateBadges();
+
+</script>
 
 </body>
-</html>
 
+</html>
