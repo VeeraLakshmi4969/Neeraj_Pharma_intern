@@ -1,509 +1,432 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wishlist - Neeraj Pharma</title>
-
+    <link rel="icon" type="image/jpeg" href="neeraj pharma.jpeg" />
+    <!-- Bootstrap -->
     <link
-        rel="icon"
-        type="image/jpeg"
-        href="neeraj pharma.jpeg"
-    >
-
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
     <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    >
-
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
     <style>
-
-        * {
-            box-sizing: border-box;
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: #f5f7fa;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      /* NAVBAR */
+      .navbar {
+        background: white;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        padding: 10px 0;
+      }
+      .navbar-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .logo {
+        max-width: 180px;
+        height: 50px;
+        object-fit: contain;
+      }
+      .brand-text h4 {
+        margin: 0;
+        font-size: 22px;
+        color: #0d6efd;
+        font-weight: bold;
+      }
+      .brand-text small {
+        color: #6c757d;
+        font-size: 12px;
+      }
+      .nav-link {
+        color: #333 !important;
+        font-weight: 600;
+        margin: 0 8px;
+      }
+      .nav-link:hover {
+        color: #198754 !important;
+      }
+      /* NAV ICONS */
+      .nav-icon {
+        color: #333;
+        font-size: 22px;
+        margin-left: 20px;
+        text-decoration: none;
+        position: relative;
+      }
+      .nav-icon:hover {
+        color: #198754;
+      }
+      /* BADGE */
+      .icon-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        min-width: 18px;
+        height: 18px;
+        background: red;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 4px;
+      }
+      /* WISHLIST SECTION */
+      .wishlist-section {
+        padding: 50px 0;
+      }
+      /* WISHLIST CARD */
+      .wishlist-card {
+        border: none;
+        border-radius: 12px;
+        background: white;
+        height: 100%;
+        transition: 0.3s;
+      }
+      .wishlist-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+      /* PRODUCT IMAGE */
+      .wishlist-image {
+        width: 100%;
+        height: 220px;
+        object-fit: contain;
+        padding: 20px;
+      }
+      /* COMPANY */
+      .company {
+        color: #6c757d;
+        font-size: 14px;
+      }
+      /* PRICE */
+      .price {
+        color: #198754;
+        font-size: 22px;
+        font-weight: bold;
+      }
+      /* EMPTY WISHLIST */
+      .empty-wishlist {
+        padding: 80px 20px;
+      }
+      /* MOBILE */
+      @media (max-width: 767px) {
+        .brand-text {
+          display: none;
         }
-
-        body {
-            background: #f5f7fa;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .navbar {
-            background: white;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-            padding: 10px 0;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .logo {
-            max-width: 180px;
-            height: 50px;
-            object-fit: contain;
+          max-width: 140px;
         }
-
-        .brand-text h4 {
-            margin: 0;
-            font-size: 22px;
-            color: #0d6efd;
-            font-weight: bold;
-        }
-
-        .brand-text small {
-            color: #6c757d;
-            font-size: 12px;
-        }
-
-        .nav-link {
-            color: #333 !important;
-            font-weight: 600;
-            margin: 0 8px;
-        }
-
-        .nav-link:hover {
-            color: #198754 !important;
-        }
-
-        .nav-icon {
-            color: #333;
-            font-size: 22px;
-            margin-left: 20px;
-            text-decoration: none;
-            position: relative;
-        }
-
-        .nav-icon:hover {
-            color: #198754;
-        }
-
-        .icon-badge {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            min-width: 18px;
-            height: 18px;
-            background: red;
-            color: white;
-            font-size: 10px;
-            font-weight: bold;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 4px;
-        }
-
-        .wishlist-section {
-            padding: 50px 0;
-        }
-
-        .wishlist-card {
-            border: none;
-            border-radius: 12px;
-            background: white;
-            height: 100%;
-            transition: 0.3s;
-        }
-
-        .wishlist-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .wishlist-image {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            padding: 20px;
-        }
-
-        .company {
-            color: #6c757d;
-            font-size: 14px;
-        }
-
-        .price {
-            color: #198754;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .empty-wishlist {
-            padding: 80px 20px;
-        }
-
-        @media (max-width: 767px) {
-
-            .brand-text {
-                display: none;
-            }
-
-            .logo {
-                max-width: 140px;
-            }
-
-        }
-
+      }
     </style>
-
-</head>
-
-
-<body>
-
-
-<nav class="navbar navbar-expand-lg sticky-top">
-
+  </head>
+  <body>
+    <!--NAVBAR  -->
+    <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-
         <a
             class="navbar-brand"
-            href="products.html"
-        >
-
+            href="products.html">
             <img
                 src="neeraj pharma.jpeg"
-                class="logo"
-                alt="Neeraj Pharma"
-            >
-
+                class="logo img-fluid"
+                alt="Neeraj Pharma">
             <div class="brand-text">
-
-                <h4>
-                    Neeraj Pharma
-                </h4>
-
+                <h4>NeerajPharma</h4>
                 <small>
                     Your Trusted Healthcare Partner
                 </small>
-
             </div>
-
         </a>
-
-
-        <div class="d-flex align-items-center">
-
-            <a
-                href="products.html"
-                class="nav-link"
-            >
-                Products
-            </a>
-
-
-            <a
-                href="wishlist.html"
-                class="nav-icon"
-                title="Wishlist"
-            >
-
-                <i class="bi bi-heart-fill"></i>
-
-                <span
-                    id="wishlist-badge"
-                    class="icon-badge"
-                >
-                    0
-                </span>
-
-            </a>
-
-
-            <a
-                href="cart.html"
-                class="nav-icon"
-                title="Cart"
-            >
-
-                <i class="bi bi-cart3"></i>
-
-                <span
-                    id="cart-badge"
-                    class="icon-badge"
-                >
-                    0
-                </span>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</nav>
-
-
-<section class="wishlist-section">
-
-    <div class="container">
-
-        <div class="text-center mb-5">
-
-            <h2 class="text-success fw-bold">
-
-                <i class="bi bi-heart-fill me-2"></i>
-
-                My Wishlist
-
-            </h2>
-
-            <p class="text-muted">
-                Products you have saved for later
-            </p>
-
-        </div>
-
-
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div
-            id="wishlist-container"
-            class="row g-4"
-        ></div>
+            class="collapse navbar-collapse"
+            id="navbarMenu"
+        >
+            <ul class="navbar-nav mx-auto">
 
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="products.html">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        href="products.html">
+                        Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#">
+                        Categories
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#">
+                        About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <ul>
+            <form class = "d-flex" role="search">
+              <input class = "form-control me-2" type = "search" placeholder="Search here" aria-label="Seach">
+              <button class = "btn  btn-outline-success" type = "submit">Search</button>
+            </form>
+          </ul>
+            <div class="d-flex align-items-center">
+                <a
+                    href="wishlist.html"
+                    class="nav-icon"
+                    title="Wishlist">
+                    <i class="bi bi-heart"></i>
+                    <span
+                        id="wishlist-badge"
+                        class="icon-badge">0
+                    </span>
+                </a>
+                <a href="cart.html"
+                    class="nav-icon"
+                    title="Cart">
+                    <i class="bi bi-cart3"></i>
+                    <span
+                        id="cart-badge"
+                        class="icon-badge">0
+                    </span>
+                </a>
+            </div>
+        </div>
     </div>
-
-</section>
-
-
-<script src="products.js"></script>
-
-
-<script>
-
-function renderWishlist() {
-
-    const wishlist =
-        getWishlist();
-
-    const container =
-        document.getElementById(
-            "wishlist-container"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if (wishlist.length === 0) {
-
-        container.innerHTML = `
-
+</nav>
+    <!--  WISHLIST -->
+    <section class="wishlist-section">
+      <div class="container">
+        <!-- TITLE -->
+        <div class="text-center mb-5">
+          <h2 class="text-success fw-bold">
+            <i class="bi bi-heart-fill me-2"></i>
+            My Wishlist
+          </h2>
+          <p class="text-muted">Products you have saved for later</p>
+        </div>
+        <!-- PRODUCTS WILL APPEAR HERE -->
+        <div id="wishlist-container" class="row g-4"></div>
+      </div>
+    </section>
+    <!--PRODUCTS.JS -->
+    <script src="products.js"></script>
+    <!--  WISHLIST JAVASCRIPT -->
+    <script>
+      /*
+    DISPLAY WISHLIST
+*/
+      function renderWishlist() {
+        const container = document.getElementById("wishlist-container");
+        /*
+        Get wishlist from localStorage
+    */
+        const wishlist = getWishlist();
+        /*
+        Clear previous content
+    */
+        container.innerHTML = "";
+        /*
+        CHECK EMPTY WISHLIST
+    */
+        if (wishlist.length === 0) {
+          container.innerHTML = `
             <div class="col-12">
-
                 <div
-                    class="card border-0 shadow-sm text-center empty-wishlist"
-                >
-
+                    class="card border-0 shadow-sm text-center empty-wishlist">
                     <i
                         class="bi bi-heart text-success"
                         style="font-size:80px;"
                     ></i>
-
-
                     <h3 class="fw-bold mt-3">
                         Your Wishlist is Empty
                     </h3>
-
-
                     <p class="text-muted">
-                        You haven't added any products to your wishlist yet.
+                        You haven't added any products
+                        to your wishlist yet.
                     </p>
-
-
-                    <div>
-
-                        <a
-                            href="products.html"
-                            class="btn btn-success"
-                        >
-
-                            <i class="bi bi-shop me-1"></i>
-
-                            Browse Products
-
-                        </a>
-
-                    </div>
-
+                    <a
+                        href="products.html"
+                        class="btn btn-success">
+                        <i class="bi bi-shop me-1"></i>
+                        Browse Products
+                    </a>
                 </div>
-
             </div>
-
         `;
-
-        updateBadges();
-
-        return;
-    }
-
-
-    wishlist.forEach(function (item) {
-
-        const col =
-            document.createElement(
-                "div"
-            );
-
-        col.className =
-            "col-md-6 col-lg-4";
-
-
-        col.innerHTML = `
-
-            <div
-                class="card wishlist-card shadow-sm"
-            >
-
+          /*
+            Update badges
+        */
+          updateBadges();
+          return;
+        }
+        /*
+        DISPLAY EACH WISHLIST PRODUCT
+    */
+        wishlist.forEach(function (item) {
+          /*
+            Create column
+        */
+          const col = document.createElement("div");
+          col.className = "col-md-6 col-lg-4";
+          /*
+            Create product card
+        */
+          col.innerHTML = `
+            <div class="card wishlist-card shadow-sm">
+                <!-- PRODUCT IMAGE -->
                 <img
                     src="${item.image}"
                     class="wishlist-image"
                     alt="${item.name}"
                 >
-
-
                 <div class="card-body">
-
+                    <!-- PRODUCT NAME -->
                     <h5 class="fw-bold">
                         ${item.name}
                     </h5>
-
-
+                    <!-- COMPANY -->
                     <p class="company">
                         ${item.company}
                     </p>
-
-
+                    <!-- PRICE -->
                     <p class="price">
-                        ₹${item.price}
+                        ₹${Number(item.price).toFixed(0)}
                     </p>
-
-
-                    <div
-                        class="d-flex gap-2 mt-3"
-                    >
-
+                    <!-- BUTTONS -->
+                    <div class="d-flex gap-2 mt-3">
+                        <!-- ADD TO CART -->
                         <button
                             class="btn btn-success flex-grow-1 add-cart-btn"
                         >
-
                             <i class="bi bi-cart-plus me-1"></i>
-
                             Add to Cart
-
                         </button>
-
-
+                        <!-- REMOVE -->
                         <button
                             class="btn btn-outline-danger remove-btn"
                             title="Remove from Wishlist"
                         >
-
                             <i class="bi bi-trash"></i>
-
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
-
         `;
+          /*
+            ADD TO CART BUTTON
+        */
+          const addCartButton = col.querySelector(".add-cart-btn");
+          addCartButton.addEventListener("click", function () {
+            /*
+                    Create product object
+                */
+            const product = {
+              id: Number(item.id),
+              name: item.name,
+              company: item.company,
+              price: Number(item.price),
+              image: item.image,
+            };
+            /*
+                    Add product to cart
+                */
+            addProductToCart(product);
+            /*
+                    Change button text
+                */
+            addCartButton.innerHTML =
+              '<i class="bi bi-check-circle me-1"></i> Added to Cart';
+            /*
+                    Change button back
+                    after 1.2 seconds
+                */
+            setTimeout(function () {
+              addCartButton.innerHTML =
+                '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
+            }, 1200);
+            /*
+                    Update cart badge
+                */
 
-
-        const addCartButton =
-            col.querySelector(
-                ".add-cart-btn"
-            );
-
-
-        addCartButton.addEventListener(
-            "click",
-            function () {
-
-                const product =
-                    getProductById(
-                        item.id
-                    );
-
-
-                if (!product) {
-                    return;
-                }
-
-
-                addProductToCart(product);
-
-
-                addCartButton.innerHTML =
-                    '<i class="bi bi-check-circle me-1"></i> Added';
-
-
-                setTimeout(
-                    function () {
-
-                        addCartButton.innerHTML =
-                            '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
-
-                    },
-                    1200
-                );
-
+            updateBadges();
+          });
+          /*
+            REMOVE FROM WISHLIST BUTTON
+        */
+          const removeButton = col.querySelector(".remove-btn");
+          removeButton.addEventListener("click", function () {
+            // Get the latest wishlist
+            let wishlist = getWishlist();
+            // Find the exact item currently displayed
+            const index = wishlist.findIndex(function (wishlistItem) {
+              return Number(wishlistItem.id) === Number(item.id);
+            });
+            // Delete the exact item
+            if (index !== -1) {
+              wishlist.splice(index, 1);
+              saveWishlist(wishlist);
             }
-        );
-
-
-        const removeButton =
-            col.querySelector(
-                ".remove-btn"
-            );
-
-
-        removeButton.addEventListener(
-            "click",
-            function () {
-
-                removeFromWishlist(
-                    item.id
-                );
-
-                renderWishlist();
-
-            }
-        );
-
-
-        container.appendChild(col);
-
-    });
-
-
-    updateBadges();
-
-}
-
-
-renderWishlist();
-
-updateBadges();
-
-</script>
-
-</body>
-
+            // Refresh wishlist
+            renderWishlist();
+            // Refresh navbar count
+            updateBadges();
+          });
+          /*
+            Add card to page
+        */
+          container.appendChild(col);
+        });
+        /*
+        Update navbar badges
+    */
+        updateBadges();
+      }
+      /*
+    LOAD WISHLIST WHEN PAGE OPENS
+*/
+      renderWishlist();
+      /*
+    UPDATE NAVBAR BADGES
+*/
+      updateBadges();
+    </script>
+  </body>
 </html>

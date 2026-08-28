@@ -1,7 +1,5 @@
 
 // NEERAJ PHARMA - PRODUCT DATA
-
-
 const products = [
     {
         id: 1,
@@ -12,7 +10,6 @@ const products = [
         description:
             "Dolo 650 Tablet is commonly used for temporary relief from fever and mild to moderate pain. Use medicines only according to appropriate medical advice."
     },
-
     {
         id: 2,
         name: "Vitamin C Tablets",
@@ -22,7 +19,6 @@ const products = [
         description:
             "Vitamin C Tablets are a dietary supplement that supports normal immune function and overall health."
     },
-
     {
         id: 3,
         name: "Foracort 200 Rotacaps",
@@ -32,7 +28,6 @@ const products = [
         description:
             "Foracort 200 Rotacaps are prescribed for the management of certain respiratory conditions. Use only as directed by a healthcare professional."
     },
-
     {
         id: 4,
         name: "Pantocid 40mg Tablet",
@@ -42,7 +37,6 @@ const products = [
         description:
             "Pantocid 40mg Tablet is used as prescribed for conditions related to excess stomach acid."
     },
-
     {
         id: 5,
         name: "Volini Pain Relief Spray",
@@ -52,7 +46,6 @@ const products = [
         description:
             "Volini Pain Relief Spray is a topical product used for temporary relief from muscle and joint pain."
     },
-
     {
         id: 6,
         name: "Revital H",
@@ -63,55 +56,36 @@ const products = [
             "Revital H is a daily health supplement containing vitamins and minerals."
     }
 ];
-
-
-// ======================================================
-// CART FUNCTIONS
-// ======================================================
-
 function getCart() {
     try {
-        const cart = JSON.parse(
-            localStorage.getItem("cart")
-        );
-
-        return Array.isArray(cart) ? cart : [];
+        const cart = JSON.parse(localStorage.getItem("cart"));
+        if (Array.isArray(cart)) {
+            return cart;
+        }
+        return [];
     } catch (error) {
         return [];
     }
 }
-
-
 function saveCart(cart) {
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
-
-
+// ADD PRODUCT TO CART
 function addProductToCart(product) {
-
     if (!product) {
         return;
     }
-
-    const cart = getCart();
-
-    const existingProduct = cart.find(
-        item =>
-            Number(item.id) === Number(product.id)
-    );
-
+    let cart = getCart();
+    const productId = Number(product.id);
+    const existingProduct = cart.find(function (item) {
+        return Number(item.id) === productId;
+    });
     if (existingProduct) {
-
         existingProduct.quantity =
             Number(existingProduct.quantity || 1) + 1;
-
     } else {
-
         cart.push({
-            id: product.id,
+            id: productId,
             name: product.name,
             company: product.company,
             price: Number(product.price),
@@ -119,51 +93,35 @@ function addProductToCart(product) {
             quantity: 1
         });
     }
-
     saveCart(cart);
-
     updateBadges();
 }
-
-
-function removeProductFromCart(productId) {
-
-    let cart = getCart();
-
-    cart = cart.filter(
-        item =>
-            Number(item.id) !== Number(productId)
-    );
-
-    saveCart(cart);
-
-    updateBadges();
-}
-
-
+// UPDATE CART QUANTITY
 function updateCartQuantity(productId, quantity) {
-
-    const cart = getCart();
-
-    const product = cart.find(
-        item =>
-            Number(item.id) === Number(productId)
-    );
-
+    let cart = getCart();
+    const id = Number(productId);
+    const product = cart.find(function (item) {
+        return Number(item.id) === id;
+    });
     if (!product) {
         return;
     }
-
     quantity = Number(quantity);
-
-    if (quantity < 1) {
-
-        removeProductFromCart(productId);
-
+    if (quantity <= 0) {
+        removeProductFromCart(id);
         return;
     }
-
     product.quantity = quantity;
+    saveCart(cart);
+    updateBadges();
+}
+// REMOVE PRODUCT FROM CART
+function removeProductFromCart(productId) {
+    const id = Number(productId);
+    let cart = getCart();
+    cart = cart.filter(function (item) {
+        return Number(item.id) !== id;
+    });
 
     saveCart(cart);
 
@@ -171,33 +129,30 @@ function updateCartQuantity(productId, quantity) {
 }
 
 
+// CLEAR CART
 function clearCart() {
 
     localStorage.removeItem("cart");
 
     updateBadges();
 }
-
-
-// ======================================================
-// WISHLIST FUNCTIONS
-// ======================================================
-
 function getWishlist() {
 
     try {
 
-        const wishlist = JSON.parse(
-            localStorage.getItem("wishlist")
-        );
+        const wishlist =
+            JSON.parse(localStorage.getItem("wishlist"));
 
-        return Array.isArray(wishlist)
-            ? wishlist
-            : [];
+        if (Array.isArray(wishlist)) {
+            return wishlist;
+        }
+
+        return [];
 
     } catch (error) {
 
         return [];
+
     }
 }
 
@@ -209,178 +164,93 @@ function saveWishlist(wishlist) {
         JSON.stringify(wishlist)
     );
 }
-
-
-// ======================================================
-// TOGGLE WISHLIST
-// ======================================================
-
+function isProductWishlisted(productId) {
+    const id = Number(productId);
+    const wishlist = getWishlist();
+    return wishlist.some(function (item) {
+        return Number(item.id) === id;
+    });
+}
 function toggleWishlist(product) {
 
     if (!product) {
         return false;
     }
-
     let wishlist = getWishlist();
-
-    const existingIndex =
-        wishlist.findIndex(
-            item =>
-                Number(item.id) ===
-                Number(product.id)
-        );
-
-
-    // Remove if already present
-
+    const productId = Number(product.id);
+    const existingIndex = wishlist.findIndex(function (item) {
+        return Number(item.id) === productId;
+    });
     if (existingIndex !== -1) {
-
-        wishlist.splice(
-            existingIndex,
-            1
-        );
-
+        wishlist.splice(existingIndex, 1);
         saveWishlist(wishlist);
-
         updateBadges();
-
         return false;
     }
-
-
-    // Add product
-
     wishlist.push({
-
-        id: product.id,
-
+        id: productId,
         name: product.name,
-
         company: product.company,
-
         price: Number(product.price),
-
         image: product.image,
-
         quantity: 1
-
     });
-
-
     saveWishlist(wishlist);
-
     updateBadges();
-
     return true;
 }
-
-
-// ======================================================
-// REMOVE FROM WISHLIST
-// ======================================================
-
 function removeFromWishlist(productId) {
-
     let wishlist = getWishlist();
+    const id = Number(productId);
+    wishlist = wishlist.filter(function (item) {
+        return Number(item.id) !== id;
+    });
 
-    wishlist = wishlist.filter(
-        item =>
-            Number(item.id) !==
-            Number(productId)
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist)
     );
+    updateBadges();
+}
+// CLEAR WISHLIST
+function clearWishlist() {
 
-    saveWishlist(wishlist);
+    localStorage.removeItem("wishlist");
 
     updateBadges();
 }
-
-
-// ======================================================
-// CHECK WISHLIST
-// ======================================================
-
-function isProductWishlisted(productId) {
-
-    const wishlist = getWishlist();
-
-    return wishlist.some(
-        item =>
-            Number(item.id) ===
-            Number(productId)
-    );
-}
-
-
-// ======================================================
-// NAVIGATION BADGES
-// ======================================================
-
-function updateBadges() {
-
-    const cartBadge =
-        document.getElementById(
-            "cart-badge"
-        );
-
-    const wishlistBadge =
-        document.getElementById(
-            "wishlist-badge"
-        );
-
-
-    // Cart badge
-
-    if (cartBadge) {
-
-        const cart = getCart();
-
-        const totalQuantity =
-            cart.reduce(
-                (total, item) =>
-                    total +
-                    Number(
-                        item.quantity || 1
-                    ),
-                0
-            );
-
-        cartBadge.textContent =
-            totalQuantity;
-    }
-
-
-    // Wishlist badge
-
-    if (wishlistBadge) {
-
-        wishlistBadge.textContent =
-            getWishlist().length;
-    }
-}
-
-
-// ======================================================
-// FIND PRODUCT
-// ======================================================
-
+// GET PRODUCT BY ID
 function getProductById(id) {
-
-    return products.find(
-        product =>
-            Number(product.id) ===
-            Number(id)
-    );
+    const productId = Number(id);
+    return products.find(function (product) {
+        return Number(product.id) === productId;
+    });
 }
-
-
-// ======================================================
-// INITIALIZE BADGES
-// ======================================================
-
+function updateBadges() {
+    const cartBadge =
+        document.getElementById("cart-badge");
+    const wishlistBadge =
+        document.getElementById("wishlist-badge");
+    // CART BADGE
+    if (cartBadge) {
+        const cart = getCart();
+        const totalQuantity =
+            cart.reduce(function (total, item) {
+                return total +
+                    Number(item.quantity || 1);
+            }, 0);
+        cartBadge.textContent = totalQuantity;
+    }
+    // WISHLIST BADGE
+    if (wishlistBadge) {
+        const wishlist = getWishlist();
+        wishlistBadge.textContent =
+            wishlist.length;
+    }
+  }
 document.addEventListener(
     "DOMContentLoaded",
     function () {
-
         updateBadges();
 
     }
