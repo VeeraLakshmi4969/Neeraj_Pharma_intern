@@ -178,25 +178,104 @@
           </ul>
           <ul>
             <form class="d-flex" role="search">
-                <input class ="form-control me-2" type="search" placeholder = "Search here" arial-lable="Search">
-                <button class = "btn btn-outline-success" type = "submit">Search</button>
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search here"
+                aria-label="Search"
+              />
+              <button class="btn btn-outline-success" type = "submit">Search</button>
             </form>
+            
           </ul>
+
           <div class="d-flex align-items-center">
             <a href="wishlist.html" class="nav-icon" title="Wishlist">
               <i class="bi bi-heart"></i>
-              <span id="wishlist-badge" class="icon-badge">0 </span>
+              <span id="wishlist-badge" class="icon-badge"> 0 </span>
             </a>
             <a href="cart.html" class="nav-icon" title="Cart">
               <i class="bi bi-cart3"></i>
               <span id="cart-badge" class="icon-badge"> 0 </span>
             </a>
+            <div class="profile-menu-container">
+  <!-- Clickable Icon -->
+  <div class="profile-icon" onclick="toggleMenu()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+    </svg>
+  </div>
+
+  <!-- Dropdown Options -->
+  <div id="dropdownMenu" class="dropdown-content">
+    <a href="#profile">Profile</a>
+    <a href="#logout">Logout</a>
+  </div>
+</div>
+
+<style>
+ .profile-menu-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 25px;
+}
+  .profile-icon {
+    cursor: pointer;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 4px;
+    z-index: 1;
+  }
+  .dropdown-content a {
+    color: #333;
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+    font-family: sans-serif;
+    font-size: 14px;
+  }
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  .show {
+    display: block;
+  }
+</style>
+
+<script>
+  function toggleMenu() {
+    document.getElementById("dropdownMenu").classList.toggle("show");
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.closest('.profile-menu-container')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+</script>
+
+
           </div>
         </div>
       </div>
     </nav>
     <section class="products-section">
       <div class="container">
+      
         <div id="product-grid" class="row g-4"></div>
       </div>
     </section>
