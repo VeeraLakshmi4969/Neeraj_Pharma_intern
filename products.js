@@ -199,17 +199,20 @@ function toggleWishlist(product) {
     updateBadges();
     return true;
 }
+// REMOVE FROM WISHLIST (FIXED)
 function removeFromWishlist(productId) {
     let wishlist = getWishlist();
-    const id = Number(productId);
+    const id = Number(productId); // Ensure target ID is a Number
+
+    // Filter out items matching the target ID (converting both to Numbers to prevent string/number bugs)
     wishlist = wishlist.filter(function (item) {
         return Number(item.id) !== id;
     });
 
-    localStorage.setItem(
-        "wishlist",
-        JSON.stringify(wishlist)
-    );
+    // Save using saveWishlist helper so localStorage updates correctly
+    saveWishlist(wishlist);
+    
+    // Update header badges
     updateBadges();
 }
 // CLEAR WISHLIST
@@ -247,6 +250,8 @@ function updateBadges() {
         wishlistBadge.textContent =
             wishlist.length;
     }
+
+
   }
 document.addEventListener(
     "DOMContentLoaded",
