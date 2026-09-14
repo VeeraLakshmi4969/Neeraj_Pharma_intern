@@ -330,6 +330,7 @@
       const productDescription = document.getElementById("productDescription");
       const wishlistButton = document.getElementById("wishlistButton");
       const cartButton = document.getElementById("cartButton");
+
       if (product) {
         productImage.src = product.image;
         productImage.alt = product.name;
@@ -347,10 +348,9 @@
         wishlistButton.style.display = "none";
         cartButton.style.display = "none";
       }
+
       function updateWishlistButton() {
-        if (!product) {
-          return;
-        }
+        if (!product) return;
         const exists = isProductWishlisted(product.id);
         if (exists) {
           wishlistButton.innerHTML =
@@ -364,29 +364,35 @@
           wishlistButton.classList.add("btn-outline-success");
         }
       }
+
+      function updateCartButton() {
+  if (!product) return;
+  const inCart = isProductInCart(product.id);
+  if (inCart) {
+    cartButton.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Already in Cart';
+    cartButton.className = "btn btn-success action-button"; // Keeps button green
+  } else {
+    cartButton.innerHTML = '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
+    cartButton.className = "btn btn-success action-button";
+  }
+}
       wishlistButton.addEventListener("click", function () {
-        if (!product) {
-          return;
-        }
+        if (!product) return;
         toggleWishlist(product);
         updateWishlistButton();
         updateBadges();
       });
+
       cartButton.addEventListener("click", function () {
-        if (!product) {
-          return;
-        }
+        if (!product) return;
         addProductToCart(product);
-        cartButton.innerHTML =
-          '<i class="bi bi-check-circle me-1"></i> Added to Cart';
-        setTimeout(function () {
-          cartButton.innerHTML =
-            '<i class="bi bi-cart-plus me-1"></i> Add to Cart';
-        }, 1500);
+        updateCartButton();
         updateBadges();
       });
+
       updateWishlistButton();
+      updateCartButton();
       updateBadges();
-    </script>
+      </script>
   </body>
 </html>

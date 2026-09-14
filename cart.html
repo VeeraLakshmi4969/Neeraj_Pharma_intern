@@ -143,6 +143,40 @@
       .empty-cart {
         padding: 70px 20px;
       }
+
+      .profile-menu-container {
+        position: relative;
+        display: inline-block;
+        margin-left: 25px;
+      }
+      .profile-icon {
+        cursor: pointer;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: #ffffff;
+        min-width: 120px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        border-radius: 4px;
+        z-index: 1;
+      }
+      .dropdown-content a {
+        color: #333;
+        padding: 10px 14px;
+        text-decoration: none;
+        display: block;
+        font-family: sans-serif;
+        font-size: 14px;
+      }
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+      .show {
+        display: block;
+      }
+
       @media (max-width: 991px) {
         .order-summary {
           position: static;
@@ -162,16 +196,15 @@
   <body>
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <!-- Change logo link -->
-<a class="navbar-brand" href="index.html">
-         <img
+        <a class="navbar-brand" href="index.html">
+          <img
             src="neeraj pharma.jpeg"
             class="logo img-fluid"
             alt="Neeraj Pharma"
           />
           <div class="brand-text">
             <h4>NeerajPharma</h4>
-            <small> Your Trusted Healthcare Partner </small>
+            <small>Your Trusted Healthcare Partner</small>
           </div>
         </a>
         <button
@@ -185,130 +218,72 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item">
-              <a class="nav-link" href="index.html"> Home </a>
+              <a class="nav-link" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="products.html"> Products </a>
+              <a class="nav-link active" href="products.html">Products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"> Categories </a>
+              <a class="nav-link" href="#">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"> About </a>
+              <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"> Contact </a>
+              <a class="nav-link" href="#">Contact</a>
             </li>
           </ul>
-          <ul>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search here"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type = "submit">Search</button>
-            </form>
-            
-          </ul>
+          
+          <form id="searchForm" class="d-flex" role="search" action="products.html" method="GET">
+            <input
+              id="searchInput"
+              name="search"
+              class="form-control me-2"
+              type="search"
+              placeholder="Search products..."
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
 
           <div class="d-flex align-items-center">
             <a href="wishlist.html" class="nav-icon" title="Wishlist">
               <i class="bi bi-heart"></i>
-              <span id="wishlist-badge" class="icon-badge"> 0 </span>
+              <span id="wishlist-badge" class="icon-badge">0</span>
             </a>
             <a href="cart.html" class="nav-icon" title="Cart">
               <i class="bi bi-cart3"></i>
-              <span id="cart-badge" class="icon-badge"> 0 </span>
+              <span id="cart-badge" class="icon-badge">0</span>
             </a>
             <div class="profile-menu-container">
-  <!-- Clickable Icon -->
-  <div class="profile-icon" onclick="toggleMenu()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-    </svg>
-  </div>
-
-  <!-- Dropdown Options -->
-  <div id="dropdownMenu" class="dropdown-content">
-    <a href="#profile">Profile</a>
-    <a href="#logout">Logout</a>
-  </div>
-</div>
-
-<style>
- .profile-menu-container {
-  position: relative;
-  display: inline-block;
-  margin-left: 25px;
-}
-  .profile-icon {
-    cursor: pointer;
-  }
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
-    background-color: #ffffff;
-    min-width: 120px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    border-radius: 4px;
-    z-index: 1;
-  }
-  .dropdown-content a {
-    color: #333;
-    padding: 10px 14px;
-    text-decoration: none;
-    display: block;
-    font-family: sans-serif;
-    font-size: 14px;
-  }
-  .dropdown-content a:hover {
-    background-color: #f1f1f1;
-  }
-  .show {
-    display: block;
-  }
-</style>
-
-<script>
-  function toggleMenu() {
-    document.getElementById("dropdownMenu").classList.toggle("show");
-  }
-
-  // Close the dropdown if the user clicks outside of it
-  window.onclick = function(event) {
-    if (!event.target.closest('.profile-menu-container')) {
-      var dropdowns = document.getElementsByClassName("dropdown-content");
-      for (var i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
-</script>
-
-
+              <div class="profile-icon" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+              </div>
+              <div id="dropdownMenu" class="dropdown-content">
+                <a href="#profile">Profile</a>
+                <a href="#logout">Logout</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </nav>
+
     <div class="container my-5">
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h3 class="fw-bold mb-1">
+          <h3 class="fw-bold mb-1">Shopping Cart</h3>
           <p class="text-muted mb-0">
-    <span id="cart-item-count" class="d-none"></span>
-</p>
+            <span id="cart-item-count" class="d-none">0</span>
+          </p>
         </div>
         <a href="products.html" class="btn btn-outline-success">
-  <i class="bi bi-arrow-left me-1"></i>
-  Continue Shopping
-</a>
+          <i class="bi bi-arrow-left me-1"></i>
+          Continue Shopping
+        </a>
       </div>
       <div class="row g-4">
         <div class="col-lg-8">
@@ -324,29 +299,28 @@
             </div>
             <div class="card-body">
               <div class="d-flex justify-content-between mb-3">
-                <span> Subtotal </span>
-                <span id="subtotal"> ₹0 </span>
+                <span>Subtotal</span>
+                <span id="subtotal">₹0</span>
               </div>
               <div class="d-flex justify-content-between mb-3">
-                <span> Discount </span>
-                <span id="discount" class="text-success"> - ₹0 </span>
+                <span>Discount</span>
+                <span id="discount" class="text-success">- ₹0</span>
               </div>
               <div class="d-flex justify-content-between mb-3">
-                <span> Delivery </span>
-                <span class="text-success"> FREE </span>
+                <span>Delivery</span>
+                <span class="text-success">FREE</span>
               </div>
               <div class="d-flex justify-content-between mb-3">
-                <span> GST </span>
-                <span id="gst"> ₹0 </span>
+                <span>GST</span>
+                <span id="gst">₹0</span>
               </div>
               <hr />
               <div class="d-flex justify-content-between align-items-center">
                 <h5 class="fw-bold">Total</h5>
-
                 <h5 id="total" class="fw-bold text-success">₹0</h5>
               </div>
               <div class="mt-4">
-                <label class="fw-semibold mb-2"> Have a coupon? </label>
+                <label class="fw-semibold mb-2">Have a coupon?</label>
                 <div class="input-group">
                   <input
                     id="couponInput"
@@ -376,8 +350,37 @@
         </div>
       </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="products.js"></script>
     <script>
+      function toggleMenu() {
+        document.getElementById("dropdownMenu").classList.toggle("show");
+      }
+
+      window.onclick = function(event) {
+        if (!event.target.closest('.profile-menu-container')) {
+          var dropdowns = document.getElementsByClassName("dropdown-content");
+          for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+              openDropdown.classList.remove('show');
+            }
+          }
+        }
+      }
+
+      const searchForm = document.getElementById("searchForm");
+      const searchInput = document.getElementById("searchInput");
+
+      searchForm.addEventListener("submit", function(event) {
+        const query = searchInput.value.trim();
+        if (!query) {
+          event.preventDefault();
+          return;
+        }
+      });
+
       const cartItemsContainer = document.getElementById("cart-items");
       const cartCount = document.getElementById("cart-item-count");
       const subtotalElement = document.getElementById("subtotal");
@@ -388,6 +391,7 @@
       const couponButton = document.getElementById("couponButton");
       const couponMessage = document.getElementById("couponMessage");
       let appliedCoupon = "";
+
       function renderCart() {
         const cart = getCart();
         cartItemsContainer.innerHTML = "";
@@ -396,130 +400,67 @@
           couponInput.value = "";
           couponMessage.textContent = "";
           cartItemsContainer.innerHTML = `
-            <div
-                class="card shadow-sm border-0 text-center empty-cart"
-            >
-                <i
-                    class="bi bi-cart-x text-success"
-                    style="font-size:70px;"
-                ></i>
-                <h3 class="fw-bold mt-3">
-                    Your Cart is Empty
-                </h3>
-                <p class="text-muted">
-                    You haven't added any products to your cart yet.
-                </p>
+            <div class="card shadow-sm border-0 text-center empty-cart">
+                <i class="bi bi-cart-x text-success" style="font-size:70px;"></i>
+                <h3 class="fw-bold mt-3">Your Cart is Empty</h3>
+                <p class="text-muted">You haven't added any products to your cart yet.</p>
                 <div>
-                    <a
-                        href="products.html"
-                        class="btn btn-success"
-                    >
+                    <a href="products.html" class="btn btn-success">
                         <i class="bi bi-shop me-1"></i>
                         Browse Products
                     </a>
                 </div>
             </div>
-        `;
+          `;
           cartCount.textContent = "0";
           updateSummary();
           updateBadges();
           return;
         }
+
         cart.forEach(function (item) {
           const card = document.createElement("div");
           card.className = "card cart-card shadow-sm mb-3";
           card.innerHTML = `
             <div class="row g-0 align-items-center">
-
-                <div
-                    class="col-md-3 text-center p-3"
-                >
-
-                    <img
-                        src="${item.image}"
-                        class="product-image"
-                        alt="${item.name}"
-                    >
-
+                <div class="col-md-3 text-center p-3">
+                    <img src="${item.image}" class="product-image" alt="${item.name}">
                 </div>
-
-
                 <div class="col-md-9">
-
                     <div class="card-body">
-
-                        <div
-                            class="d-flex justify-content-between align-items-start"
-                        >
-
+                        <div class="d-flex justify-content-between align-items-start">
                             <div>
-
-                                <h5 class="fw-bold mb-1">
-                                    ${item.name}
-                                </h5>
-
-                                <p
-                                    class="text-muted small mb-1"
-                                >
-                                    ${item.company}
-                                </p>
-
+                                <h5 class="fw-bold mb-1">${item.name}</h5>
+                                <p class="text-muted small mb-1">${item.company}</p>
                                 <span class="stock">
-
-                                    <i
-                                        class="bi bi-check-circle-fill me-1"
-                                    ></i>
-
+                                    <i class="bi bi-check-circle-fill me-1"></i>
                                     In Stock
                                 </span>
-                                <p
-                                    class="delivery mt-1 mb-0"
-                                >
-                                    <i
-                                        class="bi bi-truck me-1"
-                                    ></i>
+                                <p class="delivery mt-1 mb-0">
+                                    <i class="bi bi-truck me-1"></i>
                                     Delivery by Tomorrow
                                 </p>
                             </div>
-                            <button
-                                class="btn btn-outline-danger btn-sm delete-btn"
-                                title="Remove"
-                            >
+                            <button class="btn btn-outline-danger btn-sm delete-btn" title="Remove">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
-                        <div
-                            class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top"
-                        >
+                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
                             <div class="quantity-box">
-                                <button
-                                    class="quantity-btn minus"
-                                    title="Decrease quantity"
-                                >
+                                <button class="quantity-btn minus" title="Decrease quantity">
                                     <i class="bi bi-dash"></i>
                                 </button>
-                                <span class="qty">
-                                    ${item.quantity}
-                                </span>
-                                <button
-                                    class="quantity-btn plus"
-                                    title="Increase quantity"
-                                >
+                                <span class="qty">${item.quantity}</span>
+                                <button class="quantity-btn plus" title="Increase quantity">
                                     <i class="bi bi-plus"></i>
                                 </button>
                             </div>
                             <div>
-                                <span class="price">
-                                    ₹${(
-                                      Number(item.price) * Number(item.quantity)
-                                    ).toFixed(0)}
-                                </span>
+                                <span class="price">₹${(Number(item.price) * Number(item.quantity)).toFixed(0)}</span>
                             </div>
                         </div>
                         <div class="mt-3">
-                            <button
-                                class="btn btn-sm btn-light border save-wishlist-btn"
-                            >
+                            <button class="btn btn-sm btn-light border save-wishlist-btn">
                                 <i class="bi bi-heart me-1"></i>
                                 Save for Later
                             </button>
@@ -527,11 +468,13 @@
                     </div>
                 </div>
             </div>
-        `;
+          `;
+
           card.querySelector(".plus").addEventListener("click", function () {
             updateCartQuantity(item.id, Number(item.quantity) + 1);
             renderCart();
           });
+
           card.querySelector(".minus").addEventListener("click", function () {
             const newQuantity = Number(item.quantity) - 1;
             if (newQuantity <= 0) {
@@ -541,36 +484,34 @@
             }
             renderCart();
           });
-          card
-            .querySelector(".delete-btn")
-            .addEventListener("click", function () {
-              removeProductFromCart(item.id);
-              renderCart();
-            });
+
+          card.querySelector(".delete-btn").addEventListener("click", function () {
+            removeProductFromCart(item.id);
+            renderCart();
+          });
+
           const saveButton = card.querySelector(".save-wishlist-btn");
           if (isProductWishlisted(item.id)) {
             saveButton.classList.add("text-success");
-            saveButton.innerHTML =
-              '<i class="bi bi-heart-fill me-1"></i> Wishlisted';
+            saveButton.innerHTML = '<i class="bi bi-heart-fill me-1"></i> Wishlisted';
           }
+
           saveButton.addEventListener("click", function () {
             const product = getProductById(item.id);
-            if (!product) {
-              return;
-            }
+            if (!product) return;
             const added = toggleWishlist(product);
             if (added) {
               saveButton.classList.add("text-success");
-              saveButton.innerHTML =
-                '<i class="bi bi-heart-fill me-1"></i> Wishlisted';
+              saveButton.innerHTML = '<i class="bi bi-heart-fill me-1"></i> Wishlisted';
             } else {
               saveButton.classList.remove("text-success");
-              saveButton.innerHTML =
-                '<i class="bi bi-heart me-1"></i> Save for Later';
+              saveButton.innerHTML = '<i class="bi bi-heart me-1"></i> Save for Later';
             }
           });
+
           cartItemsContainer.appendChild(card);
         });
+
         const totalQuantity = cart.reduce(function (total, item) {
           return total + Number(item.quantity);
         }, 0);
@@ -578,6 +519,7 @@
         updateSummary();
         updateBadges();
       }
+
       function updateSummary() {
         const cart = getCart();
         let subtotal = 0;
@@ -596,6 +538,7 @@
         gstElement.textContent = "₹" + gst.toFixed(0);
         totalElement.textContent = "₹" + total.toFixed(0);
       }
+
       couponButton.addEventListener("click", function () {
         const code = couponInput.value.trim().toUpperCase();
         if (code === "NEERAJ100") {
@@ -605,8 +548,7 @@
             return;
           }
           appliedCoupon = "NEERAJ100";
-          couponMessage.textContent =
-            "Coupon applied successfully. ₹100 discount added.";
+          couponMessage.textContent = "Coupon applied successfully. ₹100 discount added.";
           couponMessage.className = "d-block mt-2 text-success";
           updateSummary();
         } else {
@@ -616,18 +558,16 @@
           updateSummary();
         }
       });
-      document
-        .getElementById("checkoutButton")
-        .addEventListener("click", function () {
-          const cart = getCart();
-          if (cart.length === 0) {
-            alert("Your cart is empty.");
-            return;
-          }
-          alert(
-            "Checkout functionality can be connected to your payment/order system.",
-          );
-        });
+
+      document.getElementById("checkoutButton").addEventListener("click", function () {
+        const cart = getCart();
+        if (cart.length === 0) {
+          alert("Your cart is empty.");
+          return;
+        }
+        alert("Checkout functionality can be connected to your payment/order system.");
+      });
+
       renderCart();
       updateBadges();
     </script>
