@@ -228,6 +228,7 @@ function isProductInCart(productId) {
 }
 
 // UPDATE CART & WISHLIST BADGES
+// UPDATE CART & WISHLIST BADGES
 function updateBadges() {
   const cartBadge = document.getElementById("cart-badge");
   const wishlistBadge = document.getElementById("wishlist-badge");
@@ -237,14 +238,31 @@ function updateBadges() {
     const totalQuantity = cart.reduce(function (total, item) {
       return total + Number(item.quantity || 1);
     }, 0);
+    
     cartBadge.textContent = totalQuantity;
+    
+    // If quantity is 0, hide the badge; otherwise, show it
+    if (totalQuantity === 0) {
+      cartBadge.classList.add("d-none");
+    } else {
+      cartBadge.classList.remove("d-none");
+    }
   }
 
   if (wishlistBadge) {
     const wishlist = getWishlist();
     wishlistBadge.textContent = wishlist.length;
+    
+    // If wishlist is empty, hide the badge; otherwise, show it
+    if (wishlist.length === 0) {
+      wishlistBadge.classList.add("d-none");
+    } else {
+      wishlistBadge.classList.remove("d-none");
+    }
   }
+  
 }
+
 
 // FORCE "ADD TO CART" BUTTONS TO REMAIN WHITE WITH GREEN TEXT WHEN ADDED (WITH SAME THICKNESS AND WIDTH)
 function renderProductButtons() {
@@ -299,4 +317,5 @@ document.addEventListener("DOMContentLoaded", function () {
       detailsCartBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Already Added';
     }
   }
+  
 });
