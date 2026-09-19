@@ -246,7 +246,7 @@ function updateBadges() {
   }
 }
 
-// FORCE "ADD TO CART" BUTTONS TO REMAIN BRIGHT GREEN WHEN ADDED
+// FORCE "ADD TO CART" BUTTONS TO REMAIN WHITE WITH GREEN TEXT WHEN ADDED (WITH SAME THICKNESS AND WIDTH)
 function renderProductButtons() {
   const buttons = document.querySelectorAll(".add-cart-btn");
 
@@ -255,9 +255,14 @@ function renderProductButtons() {
     if (!productId) return;
 
     if (isProductInCart(productId)) {
-      btn.className = "btn btn-success flex-grow-1 add-cart-btn";
+      // Kept flex-grow-1 so both buttons share the row width equally
+      btn.className = "btn flex-grow-1 add-cart-btn"; 
       btn.disabled = true;
-      btn.setAttribute("style", "background-color: #198754 !important; border-color: #198754 !important; color: #ffffff !important; opacity: 1 !important; cursor: not-allowed !important;");
+      // border: 1px matches Bootstrap's default button thickness perfectly
+      btn.setAttribute(
+        "style", 
+        "background-color: #ffffff !important; border: 1px solid #198754 !important; color: #198754 !important; opacity: 1 !important; cursor: not-allowed !important; display: inline-flex; align-items: center; justify-content: center;"
+      );
       btn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Already Added';
     } else {
       btn.className = "btn btn-success flex-grow-1 add-cart-btn";
@@ -268,7 +273,30 @@ function renderProductButtons() {
   });
 }
 
+
 document.addEventListener("DOMContentLoaded", function () {
-  updateBadges();
-  renderProductButtons();
+  updateBadges(); // Updates header text badges
+  renderProductButtons(); // Updates catalog grid buttons
+
+  // --- NEW WORKAROUND FOR PRODUCT-DETAILS PAGE ---
+  // 1. Try to fetch the URL parameter id (e.g., product-details.html?id=1)
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentProductId = urlParams.get('id');
+
+  if (currentProductId) {
+    // 2. Find your single "Add to Cart" button element layout on the details page
+    const detailsCartBtn = document.querySelector(".product-details-content .btn-success") || 
+                           document.querySelector(".d-flex .btn-success:last-child") ||
+                           document.getElementById("add-to-cart-btn");
+                           
+    if (detailsCartBtn && isProductInCart(currentProductId)) {
+      // 3. Force apply the white-background, green-text visual layout overrides
+      detailsCartBtn.disabled = true;
+      detailsCartBtn.setAttribute(
+        "style", 
+        "background-color: #ffffff !important; border: 1px solid #198754 !important; color: #198754 !important; opacity: 1 !important; cursor: not-allowed !important; display: inline-flex; align-items: center; justify-content: center;"
+      );
+      detailsCartBtn.innerHTML = '<i class="bi bi-check-circle-fill me-1"></i> Already Added';
+    }
+  }
 });
